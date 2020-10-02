@@ -1,0 +1,14 @@
+{
+	"folders": [
+		{
+			"path": "."
+		}
+	],
+	"settings": {
+		"files.exclude": {
+			"**/main.exe": true,
+			"Programmazione C.code-workspace": true
+		},
+		"code-runner.runInTerminal": true
+	}
+}
