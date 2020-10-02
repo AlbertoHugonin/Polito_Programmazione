@@ -7,6 +7,7 @@ void ruota(int v[MaxN], int N, int P, int dir);
 
 
 
+
 int main() {
 
     FILE *file = fopen("mat.txt", "r");
