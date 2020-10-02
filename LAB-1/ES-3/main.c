@@ -75,7 +75,6 @@ int main() {
             }
             puts("\n");
         }
-        puts("\n");
     }
 
     return 0;
