@@ -1,7 +1,14 @@
 {
-    "folders": [
-        {
-            "path": "."
-        }
-    ]
+	"folders": [
+		{
+			"path": "."
+		}
+	],
+	"settings": {
+		"files.exclude": {
+			"**/main.exe": true,
+			"polito_programmazione.code-workspace": true
+		},
+		"code-runner.runInTerminal": true
+	}
 }
