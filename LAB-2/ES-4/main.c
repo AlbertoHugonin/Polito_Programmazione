@@ -1,6 +1,5 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <Algoritmi/algoritmi_di_ordinamento.c>
 #define MAXS 1000
 
 int main() {
