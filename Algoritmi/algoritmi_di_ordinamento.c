@@ -54,7 +54,7 @@ risultato insertion_sort(int V[], int n) {
     }
     return res;
 }
-
+/* 
 
 int main() {
 
@@ -71,4 +71,4 @@ int main() {
     insertion_sort(V, N);	
 
     return 0;
-}
+} */
