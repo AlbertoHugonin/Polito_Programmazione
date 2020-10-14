@@ -1,5 +1,6 @@
 #include <stdio.h>
 
+//e' un problema di ottimizzazione
 
 int main() {
 

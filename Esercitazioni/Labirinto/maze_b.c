@@ -15,9 +15,9 @@ int main(int argc, char *argv[]) {
   char mat[R][C];
   dim dimensioni;
   camm cammino;
-  FILE *in = fopen(argv[1], "r");
+  FILE *in = fopen("Labirinto.txt", "r");
   if (in == NULL) exit(-1);
-  FILE *fin = fopen(argv[2], "r"); /* Da file... */
+  FILE *fin = fopen("Passi.txt", "r"); /* Da file... */
   /* FILE *fin = stdin;               Da tastiera... */
 
   dimensioni = leggiMatrice(in, mat);
@@ -90,9 +90,11 @@ camm verificaCammino(FILE *fin, char mat[][C], dim dimensioni) {
     }
 
     stepX = stepY = 0;
+    //per identificare gli step singoli in una determinata direzione
     if (dx!=0) stepX = dx/abs(dx); /* +1 o -1 */
     if (dy!=0) stepY = dy/abs(dy); /* +1 o -1 */
 
+    //espressione if compressa, se dx!= 0 allora applica su lun abs(dx) se no abs(dy)
     lun = dx!=0 ? abs(dx) : abs(dy);
 
     /* Controllo se dentro la matrice */
@@ -104,6 +106,8 @@ camm verificaCammino(FILE *fin, char mat[][C], dim dimensioni) {
     } else {
       printf("mossa nella casella %d %d\n", nX, nY);
       cammino.lun += lun;
+      
+      //iterazione principale
       for(i=stepX,j=stepY; lun>0; lun--, i+=stepX, j+=stepY) {
 	if(mat[Y+j][X+i] == 'X') { /* Muro! */
 	  cammino.lun = 0;
@@ -120,6 +124,8 @@ camm verificaCammino(FILE *fin, char mat[][C], dim dimensioni) {
 
     X = nX;
     Y = nY;
+
+    //se arriva alla fine (uscita strutturata dal ciclo)
     if (X == (dimensioni.c-1) && Y == (dimensioni.r-1))
       incammino = 0;
   }
