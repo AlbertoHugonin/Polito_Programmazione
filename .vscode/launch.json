@@ -34,7 +34,7 @@
             "request": "launch",
             "program": "${fileDirname}\\${fileBasenameNoExtension}.exe",
             "args": [
-                "-I", "${workspaceFolder}"
+                "-I${workspaceFolder}/Algoritmi"
             ],
             "stopAtEntry": false,
             "cwd": "${fileDirname}",
