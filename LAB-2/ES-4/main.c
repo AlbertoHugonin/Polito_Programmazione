@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <Algoritmi/algoritmi_di_ordinamento.c>
+#include <algoritmi_di_ordinamento.c>
 #define MAXS 1000
 
 void stampa_risultato(risultato res, int length);
