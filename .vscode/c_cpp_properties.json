@@ -3,7 +3,7 @@
         {
             "name": "Win32",
             "includePath": [
-                "${workspaceFolder}/**"
+                "${workspaceFolder}/Algoritmi"
             ],
             "defines": [
                 "_DEBUG",
@@ -15,7 +15,21 @@
             "cppStandard": "gnu++14",
             "intelliSenseMode": "gcc-x64",
             "compilerArgs": [
-                "-I ${workspaceFolder}"
+                "-I ${workspaceFolder}/Algoritmi"
+            ]
+        },
+        {
+            "name": "Linux",
+            "includePath": [
+                "${workspaceFolder}/Algoritmi"
+            ],
+            "defines": [],
+            "compilerPath": "/usr/bin/gcc",
+            "cStandard": "gnu11",
+            "cppStandard": "gnu++14",
+            "intelliSenseMode": "gcc-x64",
+            "compilerArgs": [
+                "-I${workspaceFolder}/Algoritmi"
             ]
         }
     ],
