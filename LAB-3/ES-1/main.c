@@ -20,11 +20,14 @@ int main() {
         for (int b=0; b<c; b++) {
             //a e b sono riga e colonna dell'elemento considerato
             //controllo per riga
+
+            if (mappa[a][b] != 1) {
+                continue;
+            }
+
             int lunghezza = controllo_riga(mappa[a], b, c);
             int altezza = 1;
             int area = 0;
-
-
             
             //controllo per colonna
             for (int pos_r = a+1; pos_r<r; pos_r++) {
@@ -76,7 +79,7 @@ int controllo_riga(int riga[], int pos, int c) {
 
 void leggiMatrice(int matrice[MAXR][MAXC], int *nr, int *nc) {
 
-    FILE *file = fopen("LAB-3/ES-1/mappa.txt", "r");
+    FILE *file = fopen("mappa.txt", "r");
 
     //salviamo la mappa
     fscanf(file, "%d %d", nr, nc);
@@ -85,5 +88,5 @@ void leggiMatrice(int matrice[MAXR][MAXC], int *nr, int *nc) {
             fscanf(file, "%d", &matrice[a][b]);
         }
     }
-
+    return;
 }

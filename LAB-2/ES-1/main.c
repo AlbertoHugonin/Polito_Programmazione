@@ -24,15 +24,15 @@ int main() {
 
     for (int a=0; a<r; a++) {
         for (int b=0; b<c; b++) {
+
+            if (mappa[a][b] != 1) {
+                continue;
+            }
             //a e b sono riga e colonna dell'elemento considerato
             //controllo per riga
             int lunghezza = controllo_riga(mappa[a], b, c);
             int altezza = 1;
             int area = 0;
-
-            if (mappa[a][b] != 1) {
-                continue;
-            }
             
             //controllo per colonna
             for (int pos_r = a+1; pos_r<r; pos_r++) {
