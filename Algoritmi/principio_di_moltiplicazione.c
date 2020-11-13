@@ -1,0 +1,1 @@
+//principio di moltiplicazione con albero delle scelte, esempio ristorante, senza funzione di check, tutte le soluzioni sono valide
