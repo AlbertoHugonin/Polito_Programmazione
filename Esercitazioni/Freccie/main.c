@@ -18,7 +18,7 @@ int main() {
     
     //troviamo gli scontri e codifichiamoli
     for (int a=0; a<n; a++) {
-        B[a] =A[a];
+        B[a] = A[a];
         if (A[a] == 0 && A[a+1] == 1) {
             //abbiamo trovato uno scontro
             scontri[a] = 1;
@@ -36,7 +36,10 @@ int main() {
 
 int controllo_equilibrio_cardinalita(int sol[], int A[], int n) {
 
-    int count_s, count_d, diff = 0;
+    int count_s = 0;
+    int diff = 0;
+    int count_d = 0;
+
 
     for (int a=0; a<n; a++) {
         //troviamo lo scontro
@@ -62,7 +65,8 @@ int controllo_equilibrio_cardinalita(int sol[], int A[], int n) {
             if (count_s != count_d) {
                 return 0;
             }
-            count_s, count_d = 0;
+            count_s = 0;
+            count_d = 0;
         }
     }
     //calcoliamo il numero di diff e ritorniamolo
