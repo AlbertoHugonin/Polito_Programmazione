@@ -54,21 +54,22 @@ int inserisci_in_lista (database_stringhe *cache, char *elemento) {
     //prepara il nuovo nodo con la sua stringa
     struct riga *nodo = (struct riga *) malloc (sizeof(struct riga));
     nodo->stringa = malloc(sizeof(elemento) * sizeof(char));
+
     for (int a=0; a<sizeof(elemento); a++) {
         nodo->stringa[a] = elemento[a];
     }
+
     struct riga *corrente = cache->testa;
     struct riga *precedente = NULL;
 
     //se l'elemento corrente è nullo vuol dire che la lista e vuota o siamo arrivati alla fine
     if (corrente == NULL) {
-
         nodo->next=NULL;
         cache->testa = nodo;
     }
     else {
         //inserimenti successivi
-        while (rif != NULL && strcmp(elemento,rif->stringa) < 0)  {
+        while (corrente != NULL && strcmp(elemento,corrente->stringa) < 0)  {
             //siamo ad elemento e prima di esso ci va questo
             
             nodo->next=rif;
