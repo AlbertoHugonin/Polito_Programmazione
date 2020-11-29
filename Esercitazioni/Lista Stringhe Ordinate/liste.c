@@ -18,17 +18,62 @@ typedef struct database_stringhe_ {
 
 int inserisci_in_lista (database_stringhe *cache, char *elemento);
 database_stringhe *carica_lista();
+int aggiungi (database_stringhe *lista);
 
 
 int main() {
 
 
     database_stringhe *lista = carica_lista();
+    //se la lista contiene numeri
+    int n = aggiungi(lista);
 
-
-    return 0;
+    return n;
 }
 
+//solo per stringe con numeri tra 1 e 9 a causa dell'uso di strcmp
+int aggiungi (database_stringhe *lista) {
+
+    int count = 0;
+
+    //salviamo l'inizio della lista e il numero degli elementi
+    struct riga *precedente = NULL;
+    struct riga *corrente = lista->testa;
+    int num_elementi = lista->num;
+    char *elemento = malloc(MAX_N * sizeof(char));
+
+    //troviamo il primo numero in testa
+    int valore_precedente;
+    int valore_corrente;
+
+    struct riga *ripresa;
+
+    //iteriamo tutti gli elementi successivi
+    
+
+    while (corrente != NULL && corrente->next != NULL) {
+
+        //testa
+        valore_precedente = atoi(corrente->stringa);
+        precedente = corrente;
+        //successivo
+        corrente = corrente->next;
+        valore_corrente = atoi(corrente->stringa);
+
+        if (valore_corrente-valore_precedente > 1) {
+
+            for (int b=valore_precedente+1; b<valore_corrente; b++) {
+
+                sprintf(elemento, "%d", b);
+                inserisci_in_lista(lista,elemento);
+                count += 1;
+            }
+            corrente = precedente;
+        }
+    }
+
+    return count;
+}
 
 
 database_stringhe *carica_lista() {
@@ -54,7 +99,6 @@ int inserisci_in_lista (database_stringhe *cache, char *elemento) {
     //prepara il nuovo nodo con la sua stringa
     struct riga *nodo = (struct riga *) malloc (sizeof(struct riga));
     nodo->stringa = strdup(elemento);
-
     struct riga *corrente = cache->testa;
     struct riga *precedente = NULL;
 
