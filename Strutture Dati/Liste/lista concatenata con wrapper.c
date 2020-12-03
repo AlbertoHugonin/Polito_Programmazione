@@ -1,3 +1,12 @@
+/*
+1- typedef struct Lista_ .... Lista per la struttura wrapper, non farlo per il nodo cosi da vedere nel debugger la lista per intero
+2- ricordarsi di ritornare la lista fino a che non si opera a livello dei nodi
+3- non è necessario usare il doppio puntatore al nodo quando si opera su lista->head
+4- è necessario usare il doppio puntatore solo quando si vuole dereferenziare il puntatore ricevuto ad esempio lista e spostarlo da un altra parte ad esempio caricare
+la lista da un altra parte
+*/
+
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>

@@ -1,3 +1,12 @@
+/*
+1- typedef struct Lista_ .... Lista per la struttura wrapper, non farlo per il nodo cosi da vedere nel debugger la lista per intero
+2- ricordarsi di ritornare la lista fino a che non si opera a livello dei nodi
+3- non è necessario usare il doppio puntatore al nodo quando si opera su lista->head
+4- è necessario usare il doppio puntatore solo quando si vuole dereferenziare il puntatore ricevuto ad esempio lista e spostarlo da un altra parte ad esempio caricare
+la lista da un altra parte
+*/
+
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -5,13 +14,13 @@
 #define MAX_N 30
 
 
-struct riga {
+typedef struct riga_ {
     char *stringa;
     struct riga *next;
-};
+} riga;
 
 typedef struct database_stringhe_ {
-    struct riga *testa;
+    riga *testa;
     int num;
 } database_stringhe;
 
@@ -19,7 +28,7 @@ typedef struct database_stringhe_ {
 int inserisci_in_lista (database_stringhe *cache, char *elemento);
 database_stringhe *carica_lista();
 int aggiungi (database_stringhe *lista);
-
+void stampa_lista(database_stringhe *lista);
 
 int main() {
 
@@ -28,7 +37,22 @@ int main() {
     //se la lista contiene numeri
     int n = aggiungi(lista);
 
+    stampa_lista(lista);
     return n;
+}
+
+void stampa_lista(database_stringhe *lista) {
+    
+    if (lista->num == 0) {
+        puts("Lista Vuota\n");
+    }
+
+        riga *elemento_corrente = lista->testa;
+        for (int a=0; a<lista->num; a++) {
+            printf("%s\n", elemento_corrente->stringa);
+            elemento_corrente=elemento_corrente->next;
+        }
+        puts("\n");
 }
 
 //solo per stringe con numeri tra 1 e 9 a causa dell'uso di strcmp
@@ -37,8 +61,8 @@ int aggiungi (database_stringhe *lista) {
     int count = 0;
 
     //salviamo l'inizio della lista e il numero degli elementi
-    struct riga *precedente = NULL;
-    struct riga *corrente = lista->testa;
+    riga *precedente = NULL;
+    riga *corrente = lista->testa;
     int num_elementi = lista->num;
     char *elemento = malloc(MAX_N * sizeof(char));
 
@@ -46,7 +70,7 @@ int aggiungi (database_stringhe *lista) {
     int valore_precedente;
     int valore_corrente;
 
-    struct riga *ripresa;
+    riga *ripresa;
 
     //iteriamo tutti gli elementi successivi
     
@@ -97,10 +121,11 @@ database_stringhe *carica_lista() {
 int inserisci_in_lista (database_stringhe *cache, char *elemento) {
 
     //prepara il nuovo nodo con la sua stringa
-    struct riga *nodo = (struct riga *) malloc (sizeof(struct riga));
+    riga *nodo = (riga *) malloc (sizeof(riga));
     nodo->stringa = strdup(elemento);
-    struct riga *corrente = cache->testa;
-    struct riga *precedente = NULL;
+
+    riga *corrente = cache->testa;
+    riga *precedente = NULL;
 
     //se l'elemento corrente è nullo vuol dire che la lista e vuota o siamo arrivati alla fine
     if (corrente == NULL) {
