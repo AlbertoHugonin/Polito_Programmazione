@@ -3,7 +3,8 @@
         {
             "name": "Win32",
             "includePath": [
-                "${workspaceFolder}/Algoritmi"
+                "${workspaceFolder}/Algoritmi",
+                "${workspaceFolder}/Algoritmi/Calcolo Combinatorio"
             ],
             "defines": [
                 "_DEBUG",
@@ -15,13 +16,15 @@
             "cppStandard": "gnu++14",
             "intelliSenseMode": "gcc-x64",
             "compilerArgs": [
-                "-I${workspaceFolder}/Algoritmi"
+                "-I${workspaceFolder}/Algoritmi",
+                "-I${workspaceFolder}/Algoritmi/Calcolo Combinatorio"
             ]
         },
         {
             "name": "Linux",
             "includePath": [
-                "${workspaceFolder}/Algoritmi"
+                "${workspaceFolder}/Algoritmi",
+                "${workspaceFolder}/Algoritmi/Calcolo Combinatorio"
             ],
             "defines": [],
             "compilerPath": "/usr/bin/gcc",
@@ -29,7 +32,8 @@
             "cppStandard": "gnu++14",
             "intelliSenseMode": "gcc-x64",
             "compilerArgs": [
-                "-I${workspaceFolder}/Algoritmi"
+                "-I${workspaceFolder}/Algoritmi",
+                "-I${workspaceFolder}/Algoritmi/Calcolo Combinatorio"
             ]
         }
     ],

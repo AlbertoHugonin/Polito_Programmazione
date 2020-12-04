@@ -10,7 +10,8 @@
 				"${file}",
 				"-o",
 				"${fileDirname}/${fileBasenameNoExtension}",
-				"-I${workspaceFolder}/Algoritmi"
+				"-I${workspaceFolder}/Algoritmi",
+				"-I${workspaceFolder}/Algoritmi/Calcolo Combinatorio"
 			],
 			"options": {
 				"cwd": "${fileDirname}"
