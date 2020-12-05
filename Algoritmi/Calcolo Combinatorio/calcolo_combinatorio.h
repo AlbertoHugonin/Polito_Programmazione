@@ -19,10 +19,11 @@ int combinazioni_semplici ( int *val, int *sol, int n, int k, int start, int pos
     int i;
 
     if (pos >= k) {
+        printf("{ ");
         for (i=0; i<k; i++) {
             printf("%d ", sol[i]);
         }
-        puts("\n");
+        puts("}");
         return count+1;
     }
 
