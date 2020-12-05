@@ -2,6 +2,7 @@
   "files.exclude": {
     "Algoritmi/Calcolo Combinatorio/**/*.exe": true,
     "**/*.exe": true,
-    "Algoritmi/Calcolo Combinatorio/calcolo_combinatorio": true
+    "Algoritmi/Calcolo Combinatorio/calcolo_combinatorio": true,
+    "Algoritmi/powerset": true,
   }
 }
