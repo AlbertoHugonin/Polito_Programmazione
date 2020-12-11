@@ -1,10 +1,18 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <calcolo_combinatorio.h>
+
+int powerset_disposizioni_ripetute (int *val, int *sol, int n, int pos, int count);
+int powerset_dividi_et_timpera (int *val, int *sol, int n, int start, int pos, int count);
+void stampa_soluzione(int *sol, int pos);
+void stampa_soluzione_disposizioni(int *val, int *sol, int n);
+//utiliziamo il modello in calcolo_combinatorio.h
+int powerset_combinazioni_semplici(int *val, int n);
 
 int main() {
 
-    int n,total,i;
+    int n,total = 0,i;
 
     printf("Inserisci il numero di elementi: ");
     scanf("%d", &n);
@@ -28,11 +36,16 @@ int main() {
     puts("Con dividi et timpera:");
     total = powerset_dividi_et_timpera(val,sol,n,0,0,total);
     printf("e in totale sono %d \n", total);
+    total = 0;
+    puts("Combinazioni semplici (k crescente):");
+    total = powerset_combinazioni_semplici(val,n);
+    printf("e in totale sono %d \n", total);
 
     return 0;
 }
 
 //start serve per evitare soluzioni simmetriche 
+//parte dall'insieme completo e va all elemento vuoto
 int powerset_dividi_et_timpera (int *val, int *sol, int n, int start, int pos, int count) {
 
     int i;
@@ -63,6 +76,7 @@ void stampa_soluzione(int *sol, int pos) {
 
 
 //decidiamo elemento preso o elemento lasciato sol[pos] = 0 se non lo prendiamo 1 se lo prendiamo
+//parte dall'insieme vuoto e sale fino all'insieme completo
 int powerset_disposizioni_ripetute (int *val, int *sol, int n, int pos, int count) {
 
     if (pos>=n) {
@@ -85,9 +99,28 @@ int powerset_disposizioni_ripetute (int *val, int *sol, int n, int pos, int coun
 void stampa_soluzione_disposizioni(int *val, int *sol, int n) {
     printf("{ ");
     for (int a=0; a<n; a++) {
-        if (sol[n] != 0) {
-            printf("%d ", val[n]);
+        if (sol[a] != 0) {
+            printf("%d ", val[a]);
         }
     }
     puts("}");
 }
+
+
+//non c'è il concetto di ordine, non c'è insieme vuoto quindi dobbiamo aggiungerlo noi, chiamiamo la funzione ricorsiva tante volete con k crescente
+//molto utile per risolvere problemi di ottimizzazione sulla cardinalità
+int powerset_combinazioni_semplici(int *val, int n) {
+
+    int *sol = malloc(n *sizeof(int));
+    
+    int count = 1, i;
+    //aggiungiamo insieme vuoto
+    printf("{ }\n");
+
+    for (i=1; i<=n; i++) {
+        count += combinazioni_semplici(val,sol,n,i,0,0,count);
+    }
+    return count;
+}
+
+
