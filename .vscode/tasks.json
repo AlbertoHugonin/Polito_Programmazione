@@ -7,11 +7,11 @@
 			"command": "/usr/bin/gcc-7",
 			"args": [
 				"-g",
-				"${file}",
+				"${file}","${workspaceFolder}/Laboratori/LAB-9/Giochi di Ruolo Modulare/inventario.c", "${workspaceFolder}/Laboratori/LAB-9/Giochi di Ruolo Modulare/personaggi.c",
 				"-o",
 				"${fileDirname}/${fileBasenameNoExtension}",
 				"-I${workspaceFolder}/Algoritmi",
-				"-I${workspaceFolder}/Algoritmi/Calcolo Combinatorio"
+				"-I${workspaceFolder}/Algoritmi/Calcolo Combinatorio",
 			],
 			"options": {
 				"cwd": "${fileDirname}"
