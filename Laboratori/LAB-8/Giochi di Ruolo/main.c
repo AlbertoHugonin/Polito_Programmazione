@@ -76,7 +76,6 @@ tab_pers *crea_tabella_personaggi();
 void carica_personaggi_da_file( tab_pers *tabella_personaggi, FILE *file);
 pers crea_pers_personalizzato();
 pers *aggiungi_personaggio(pers personaggio, tab_pers *tab_personaggi, pers *aggiunto);
-void formatta_stringhe_pers(pers *personaggio, char *codice, char *nome, char *classe);
 
 void aggiungi_equipaggiamento(tab_pers *tab_personaggi, tab_inv *tab_inventario, char *codice_pers, char *nome_oggetto);
 
@@ -232,7 +231,8 @@ pers elimina_personaggio(tab_pers *tab_personaggi, char *codice_pers) {
     pers *corrente = tab_personaggi->head;
     pers *ritorno;
 
-    if (strcmp(corrente->codice,codice_pers) == 0) {
+    int strb = strncmp(corrente->codice, codice_pers, 6*sizeof(char));
+    if (strb == 0) {
         tab_personaggi->head=corrente->next;
         corrente->next=NULL;
         tab_personaggi->n_personaggi--;
@@ -258,6 +258,8 @@ pers elimina_personaggio(tab_pers *tab_personaggi, char *codice_pers) {
 pers crea_pers_personalizzato() {
 
     pers *personaggio = malloc(sizeof(pers));
+    personaggio->tab_equipaggiamento.inUso=0;
+    personaggio->tab_equipaggiamento.vett_equipaggiamento=NULL;
 
     int n;
 
@@ -269,7 +271,12 @@ pers crea_pers_personalizzato() {
     puts("< Codice > < Nome > < Classe > < HP > < MP > < ATK > < DEF > < MAG > < SPR >");
     fflush(stdin);
     fscanf(stdin, "%s %s %s %d %d %d %d %d %d", codice, nome, classe, &personaggio->statistiche.hp, &personaggio->statistiche.mp, &personaggio->statistiche.atk, &personaggio->statistiche.def, &personaggio->statistiche.mag, &personaggio->statistiche.spr);
-    formatta_stringhe_pers(personaggio,codice,nome,classe);
+    
+    personaggio->codice = strdup(codice);
+    personaggio->nome = strdup(nome);
+    personaggio->classe = strdup(classe);
+    personaggio->next = NULL;
+
     return *personaggio;
 }
 
@@ -288,30 +295,18 @@ void carica_personaggi_da_file(tab_pers *tabella_personaggi, FILE *file) {
 
     while (fscanf(file, "%s %s %s %d %d %d %d %d %d", codice, nome, classe, &personaggio->statistiche.hp, &personaggio->statistiche.mp, &personaggio->statistiche.atk, &personaggio->statistiche.def, &personaggio->statistiche.mag, &personaggio->statistiche.spr) != EOF)
     {
-        formatta_stringhe_pers(personaggio,codice,nome,classe);
+        personaggio->codice = strdup(codice);
+        personaggio->nome = strdup(nome);
+        personaggio->classe = strdup(classe);
+        personaggio->next = NULL;
+        personaggio->tab_equipaggiamento.inUso=0;
+        personaggio->tab_equipaggiamento.vett_equipaggiamento=NULL;
         aggiunto = aggiungi_personaggio(*personaggio, tabella_personaggi, aggiunto);
         free(personaggio);
         personaggio = malloc(sizeof(pers));
     }
 
     return;
-}
-
-void formatta_stringhe_pers(pers *personaggio, char *codice, char *nome, char *classe)
-{
-    int n;
-    n = lunghezza_stringa(codice, MAX_INV);
-    personaggio->codice = malloc(n * sizeof(char));
-    memcpy(personaggio->codice, codice, n * sizeof(char));
-    ///////
-    n = lunghezza_stringa(nome, MAX_INV);
-    personaggio->nome = malloc(n * sizeof(char));
-    memcpy(personaggio->nome, nome, n * sizeof(char));
-    ///////
-    n = lunghezza_stringa(classe, MAX_INV);
-    personaggio->classe = malloc(n * sizeof(char));
-    memcpy(personaggio->classe, classe, n * sizeof(char));
-    personaggio->next = NULL;
 }
 
 pers *aggiungi_personaggio(pers personaggio, tab_pers *tab_personaggi, pers *aggiunto) {
@@ -399,14 +394,9 @@ void aggiungi_elemento_inventario(FILE *ptr, tab_inv *inventario, int a) {
     char cache[MAX_INV];
 
     fscanf(ptr,"%s", cache);
-    n = lunghezza_stringa(cache,MAX_INV);
-    corrente->nome = malloc(n*sizeof(char));
-    memcpy(corrente->nome,cache,n*sizeof(char));
-
+    corrente->nome = strdup(cache);
     fscanf(ptr,"%s", cache);
-    n = lunghezza_stringa(cache,MAX_INV);
-    corrente->tipo = malloc(n*sizeof(char));
-    memcpy(corrente->tipo,cache,n*sizeof(char));
+    corrente->tipo = strdup(cache);
 
     stat *ptr_stat = &corrente->statistiche;
 
@@ -415,18 +405,4 @@ void aggiungi_elemento_inventario(FILE *ptr, tab_inv *inventario, int a) {
 
     inventario->n++;
     return;
-}
-
-
-int lunghezza_stringa(char *stringa, int max) {
-
-    int n = 0;
-    for (int a=0; a<max; a++) {
-        if (stringa[a] != '\0') {
-            n++;
-        } else {
-            break;
-        }
-    }
-    return n;
 }

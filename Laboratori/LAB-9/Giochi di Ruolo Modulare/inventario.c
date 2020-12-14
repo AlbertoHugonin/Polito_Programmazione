@@ -46,18 +46,14 @@ void aggiungi_elemento_inventario(FILE *ptr, tab_inv *inventario, int a) {
 
     elem_inv *corrente = inventario->vett_inventario+a;
 
-    int n;
     char cache[MAX_INV];
 
     fscanf(ptr,"%s", cache);
-    n = lunghezza_stringa(cache,MAX_INV);
-    corrente->nome = malloc(n*sizeof(char));
-    memcpy(corrente->nome,cache,n*sizeof(char));
+
+    corrente->nome = strdup(cache);
 
     fscanf(ptr,"%s", cache);
-    n = lunghezza_stringa(cache,MAX_INV);
-    corrente->tipo = malloc(n*sizeof(char));
-    memcpy(corrente->tipo,cache,n*sizeof(char));
+    corrente->tipo = strdup(cache);
 
     stat *ptr_stat = &corrente->statistiche;
 
