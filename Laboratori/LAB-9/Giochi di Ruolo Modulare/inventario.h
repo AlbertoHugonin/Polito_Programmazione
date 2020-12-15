@@ -41,5 +41,5 @@ void aggiungi_elemento_inventario(FILE *ptr, tab_inv *inventario, int a);
 
 int trova_oggetto_inventario(tab_inv *tab_inventario, char *nome_oggetto);
 
-int lunghezza_stringa(char *stringa, int max);
+
 #endif

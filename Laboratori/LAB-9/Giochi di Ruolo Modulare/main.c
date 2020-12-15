@@ -22,10 +22,10 @@ int main() {
     
     carica_personaggi_da_file(tabella_personaggi,file_personaggi);
 
-    //crea personaggio (puo' esere usata anche dalla carica personaggi)
-    //pers personaggio = crea_pers_personalizzato();
+    //versione crea personaggio personalizzato che si appoggia a crea_pers e chiede i dettagli del personaggio
+    pers *personaggio = crea_pers_personalizzato();
 
-    //aggiungi_personaggio(personaggio,tabella_personaggi, NULL);
+    aggiungi_personaggio(personaggio,tabella_personaggi, NULL);
 
     //elimina il personaggio con estrazione
     elimina_personaggio(tabella_personaggi, "PG0001");
@@ -41,6 +41,9 @@ int main() {
 
 
     calcola_statistiche(tabella_personaggi,"PG0002");
+
+    //si puo' fare anche per l'inventario
+    cancella_tabella_personaggi(tabella_personaggi);
 
     return 0;
 }
