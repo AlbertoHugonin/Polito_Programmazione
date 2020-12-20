@@ -52,6 +52,32 @@
 				"kind": "build",
 				"isDefault": true
 			}
+		},
+		{
+			"type": "shell",
+			"label": "Giochi di Ruolo ADT",
+			"command": "/usr/bin/gcc-7",
+			"args": [
+				"-g",
+				"${file}","${workspaceFolder}/Laboratori/LAB-10/Giochi di Ruolo Modulare ADT/inventario.c", "${workspaceFolder}/Laboratori/LAB-10/Giochi di Ruolo Modulare ADT/elem_inv.c", "${workspaceFolder}/Laboratori/LAB-10/Giochi di Ruolo Modulare ADT/equip_array.c",  "${workspaceFolder}/Laboratori/LAB-10/Giochi di Ruolo Modulare ADT/personaggi.c",  "${workspaceFolder}/Laboratori/LAB-10/Giochi di Ruolo Modulare ADT/elem_pers.c",
+				"-o",
+				"${fileDirname}/${fileBasenameNoExtension}",
+				"-I${workspaceFolder}/Algoritmi",
+				"-I${workspaceFolder}/Algoritmi/Calcolo Combinatorio",
+			],
+			"options": {
+				"cwd": "${fileDirname}"
+			},
+			"problemMatcher": [
+				"$gcc"
+			],
+			"windows": {
+				"command": "C:\\TDM-GCC-64\\bin\\gcc.exe"
+			  },
+			"group": {
+				"kind": "build",
+				"isDefault": true
+			}
 		}
 	]
 }
