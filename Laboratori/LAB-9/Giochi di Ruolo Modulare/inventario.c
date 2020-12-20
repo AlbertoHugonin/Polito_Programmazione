@@ -63,17 +63,3 @@ void aggiungi_elemento_inventario(FILE *ptr, tab_inv *inventario, int a) {
     inventario->n++;
     return;
 }
-
-
-int lunghezza_stringa(char *stringa, int max) {
-
-    int n = 0;
-    for (int a=0; a<max; a++) {
-        if (stringa[a] != '\0') {
-            n++;
-        } else {
-            break;
-        }
-    }
-    return n;
-}

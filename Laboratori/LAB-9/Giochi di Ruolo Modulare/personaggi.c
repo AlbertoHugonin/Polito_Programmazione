@@ -167,13 +167,22 @@ pers elimina_personaggio(tab_pers *tab_personaggi, char *codice_pers) {
         tab_personaggi->tail=corrente;
     }
     ritorno->next=NULL;
-
+    tab_personaggi->n_personaggi--;
     return *ritorno;
 }
 
-pers crea_pers_personalizzato() {
-
+//crea e inizializza personaggio
+pers *crea_pers() {
     pers *personaggio = malloc(sizeof(pers));
+    personaggio->tab_equipaggiamento.inUso=0;
+    personaggio->tab_equipaggiamento.vett_equipaggiamento=NULL;
+    personaggio->next = NULL;
+    return personaggio;
+}
+
+pers *crea_pers_personalizzato() {
+
+    pers *personaggio = crea_pers();
 
     int n;
 
@@ -185,15 +194,17 @@ pers crea_pers_personalizzato() {
     puts("< Codice > < Nome > < Classe > < HP > < MP > < ATK > < DEF > < MAG > < SPR >");
     fflush(stdin);
     fscanf(stdin, "%s %s %s %d %d %d %d %d %d", codice, nome, classe, &personaggio->statistiche.hp, &personaggio->statistiche.mp, &personaggio->statistiche.atk, &personaggio->statistiche.def, &personaggio->statistiche.mag, &personaggio->statistiche.spr);
-    formatta_stringhe_pers(personaggio,codice,nome,classe);
-    return *personaggio;
+    personaggio->codice = strdup(codice);
+    personaggio->nome = strdup(nome);
+    personaggio->classe = strdup(classe);
+    return personaggio;
 }
 
 //si occupa di prendere i dati da file, creare con essi un personaggio e farlo aggiungere alla funziona aggiungi personaggio
 void carica_personaggi_da_file(tab_pers *tabella_personaggi, FILE *file) {
 
     //creiamo il primo personaggio
-    pers *personaggio = malloc(sizeof(pers));
+    pers *personaggio = crea_pers();
     pers *aggiunto = NULL;
 
 
@@ -205,62 +216,63 @@ void carica_personaggi_da_file(tab_pers *tabella_personaggi, FILE *file) {
 
     while (fscanf(file, "%s %s %s %d %d %d %d %d %d", codice, nome, classe, &personaggio->statistiche.hp, &personaggio->statistiche.mp, &personaggio->statistiche.atk, &personaggio->statistiche.def, &personaggio->statistiche.mag, &personaggio->statistiche.spr) != EOF)
     {
-        personaggio->tab_equipaggiamento.inUso=0;
-        personaggio->tab_equipaggiamento.vett_equipaggiamento=NULL;
-        formatta_stringhe_pers(personaggio,codice,nome,classe);
-        aggiunto = aggiungi_personaggio(*personaggio, tabella_personaggi, aggiunto);
-        free(personaggio);
-        personaggio = malloc(sizeof(pers));
+        personaggio->codice = strdup(codice);
+        personaggio->nome = strdup(nome);
+        personaggio->classe = strdup(classe);
+        //ritorna ultimo personaggio aggiunto per non scorrere di nuovo la lista
+        aggiunto = aggiungi_personaggio(personaggio, tabella_personaggi, aggiunto);
+        personaggio = crea_pers();
     }
 
     return;
 }
 
-//per non sprecare spazio
-void formatta_stringhe_pers(pers *personaggio, char *codice, char *nome, char *classe)
-{
-    personaggio->codice = strdup(codice);
-    ///////
-    personaggio->nome = strdup(nome);
-    ///////
-    personaggio->classe = strdup(classe);
-    
-    personaggio->next = NULL;
-}
+pers *aggiungi_personaggio(pers *personaggio, tab_pers *tab_personaggi, pers *aggiunto) {
 
-pers *aggiungi_personaggio(pers personaggio, tab_pers *tab_personaggi, pers *aggiunto) {
-
-    //questa malloc risolve tutto, senza memcpy è come se copiasse il puntatore e non il contenuto (non è la strdup che f anche la malloc)
-    pers *nodo = malloc(sizeof(pers));
-    memcpy(nodo,&personaggio,sizeof(pers));
-    nodo->next=NULL;
-
+    //aggiunta con lista vuota
     if (tab_personaggi->head == NULL) {
-        tab_personaggi->head=nodo;
-        tab_personaggi->tail=nodo;
+        tab_personaggi->head=personaggio;
+        tab_personaggi->tail=personaggio;
         tab_personaggi->n_personaggi++;
-        return nodo;
+        return personaggio;
     }
     else {
-        //versione solo inserimento in coda
+        //aggiunta in coda utilizzando puntatore ultimo elemento passato per riferimento per evitare di passare su tutta la lista
         if (aggiunto != NULL) {
             //usiamo il riferimento
-            aggiunto->next=nodo;
-            tab_personaggi->tail=nodo;
+            aggiunto->next=personaggio;
+            tab_personaggi->tail=personaggio;
             tab_personaggi->n_personaggi++;
-            return nodo;
+            return personaggio;
         } else {
-            //allora dobbiamo scorrere la lista
+            //aggiunta in coda scorrendo tutta la lista
             pers *corrente = tab_personaggi->head;
+            //arriva fino all'ultimo nodo
             while (corrente->next != NULL) {
                 corrente = corrente->next;
             }
-            corrente->next=nodo;
-            tab_personaggi->tail=nodo;
+            corrente->next=personaggio;
+            tab_personaggi->tail=personaggio;
             tab_personaggi->n_personaggi++;
-            return nodo;
+            return personaggio;
         }
 
     }
 
+}
+
+int cancella_tabella_personaggi(tab_pers *tabella_pers) {
+
+    pers *corrente = tabella_pers->head;
+    pers *precedente;
+
+    for (precedente = corrente; corrente != NULL, precedente = corrente;) {
+        corrente = corrente->next;
+        //facciamo free equipaggiamento
+        free(precedente->classe);
+        free(precedente->codice);
+        free(precedente->nome);
+        free(precedente);
+    }
+    return 0;
 }
