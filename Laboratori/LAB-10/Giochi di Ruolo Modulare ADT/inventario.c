@@ -2,7 +2,6 @@
 #include <stdlib.h>
 #include <string.h>
 #include "inventario.h"
-#define MAX_INV 50
 
 
 struct tab_inv_ {

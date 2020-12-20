@@ -2,7 +2,6 @@
 #include <stdlib.h>
 #include <string.h>
 #include "personaggi.h"
-#define MAX_INV 50
 
 //wrapper della lista personaggi
 struct tab_pers_ {
