@@ -35,7 +35,7 @@ int main() {
     total = 0;
     puts("Con dividi et timpera:");
     total = powerset_dividi_et_timpera(val,sol,n,0,0,total);
-    printf("e in totale sono %d \n", total);
+    printf("e in totale sono5 %d \n", total);
     total = 0;
     puts("Combinazioni semplici (k crescente):");
     total = powerset_combinazioni_semplici(val,n);

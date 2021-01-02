@@ -1,18 +1,14 @@
 //modelli del calcolo combinatorio in c
 #include <stdio.h>
 #include <stdlib.h>
-#include <algoritmi_di_ordinamento.c>
+#include "calcolo_combinatorio.h"
 
-int disposizioni_semplici(int *val, int *mark, int n, int *sol, int k, int count, int pos);
-int disposizioni_ripetute(int *val, int n, int *sol, int k, int count, int pos);
-int permutazioni_semplici(int *val, int *mark, int n, int *sol, int count, int pos);
-int anagrammi_con_ripetizione(char *val, int *mark, int n, char *sol, int count, int pos);
+#undef MAIN
+//in alcuni serve l'ordinamento
+//#include <algoritmi_di_ordinamento.c>
 
-int permutazioni_ripetute (char *sol, int n, char *dist_val, int n_dist, int *mark, int pos, int count);
-int combinazioni_semplici (int *val, int *sol, int n, int k, int start, int pos, int count);
-int combinazioni_con_ripetizione ( int *val, int *sol, int n, int k, int start, int pos, int count);
-
-
+//controllo nel caso voglia solo l'implementazione se no ricevo errore "multiple definition of main"
+#ifndef MAIN
 int main() {
 
     int n,k;
@@ -72,8 +68,27 @@ int main() {
 
 
         switch(s) {
-        case 1:   //TO DO
-                break;
+        case 1:     //numero di decisioni
+                    printf("Numero di val di scelta: ");
+                    int num_livelli;
+                    
+                    scanf("%d", &num_livelli);
+                    Livello *val_l = malloc(num_livelli*sizeof(Livello));
+
+                    for (int a=0; a<num_livelli; a++) {
+                        printf("Numero scelte livello %d sono: ", a);
+                        scanf("%d", &val_l[a].num_scelte);
+                        val_l[a].scelte=malloc((val_l[a].num_scelte)*sizeof(int));
+                    }
+                    for (int i=0; i<num_livelli; i++) {
+                        for (int j=0; j<val_l[i].num_scelte; j++) {
+                            printf("inserisci scelta %d-esima a livello %d: ", j, i);
+                            scanf("%d", &val_l[i].scelte[j]);
+                        }
+                    }
+                    sol = malloc(num_livelli*sizeof(int));
+                    principio_moltiplicazione(val_l, sol, num_livelli, 0, 0);
+                    break;
         
         case 2:     mark = calloc(n, sizeof(int));
                     printf("Le disposizioni semplici di %d interi ", n);
@@ -213,8 +228,29 @@ int main() {
   }
   return 0;
 }
+#endif
 
+//ritorna il numero di soluzioni
+int principio_moltiplicazione ( Livello *corrente, int *sol, int n, int pos, int count) {
 
+    int a;
+
+    if (pos >= n) {
+        //caso terminale
+        for (a=0; a<n; a++) {
+            printf("%d", sol[a]);
+        }
+        puts("\n");
+        return count+1;
+    }
+
+    //iteriamo tra tutte le scelte di quel livello 
+    for (a=0; a<corrente[pos].num_scelte; a++) {
+        sol[pos] = corrente[pos].scelte[a];
+        count = principio_moltiplicazione(corrente,sol,n,pos+1,count);
+    }
+    return count;
+}
 //n elementi presi a k a k dove non conta l'ordine quindi 1,2,3=3,2,1 perciò usiamo indice di partenza start che forza un solo ordinamento possibile
 int combinazioni_semplici ( int *val, int *sol, int n, int k, int start, int pos, int count) {
 
