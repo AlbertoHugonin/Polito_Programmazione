@@ -104,6 +104,32 @@
 				"kind": "build",
 				"isDefault": true
 			}
+		},
+		{
+			"type": "shell",
+			"label": "SET",
+			"command": "/usr/bin/gcc-7",
+			"args": [
+				"-g",
+				"${file}","${workspaceFolder}/Strutture Dati/Classe SET/set.c", "${workspaceFolder}/Strutture Dati/Classe SET/item.c",
+				"-o",
+				"${fileDirname}/${fileBasenameNoExtension}",
+				"-I${workspaceFolder}/Algoritmi",
+				"-I${workspaceFolder}/Algoritmi/Calcolo Combinatorio",
+			],
+			"options": {
+				"cwd": "${fileDirname}"
+			},
+			"problemMatcher": [
+				"$gcc"
+			],
+			"windows": {
+				"command": "C:\\TDM-GCC-64\\bin\\gcc.exe"
+			  },
+			"group": {
+				"kind": "build",
+				"isDefault": true
+			}
 		}
 	]
 }
