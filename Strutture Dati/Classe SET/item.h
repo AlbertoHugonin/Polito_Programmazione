@@ -4,7 +4,12 @@ typedef struct item_ *Item;
 #include <stdio.h>
 #include <string.h>
 
-Item itemInit();
-Item itemScan(FILE *ptr);
-//item1 > item2 = return > 0
-int itemCompare(Item item1, Item item2);
+Item ItemInit();
+Item ItemScan(FILE *ptr);
+
+int ItemCompare(Item item1, Item item2);
+
+void ItemShow(Item item, FILE *ptr);
+
+//ritorna chiave dell'elemento (in questo caso coincide con il value)
+int Keyget(Item item);

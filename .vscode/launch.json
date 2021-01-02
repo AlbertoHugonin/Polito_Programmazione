@@ -197,6 +197,30 @@
             "preLaunchTask": "Giochi di Ruolo ADT"
         },
         {
+            "name": "Linux - SET",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${fileDirname}/${fileBasenameNoExtension}",
+            "args": [
+                "-I${workspaceFolder}/Algoritmi",
+                "-I${workspaceFolder}/Algoritmi/Calcolo Combinatorio"
+            ],
+            "stopAtEntry": false,
+            "cwd": "${fileDirname}",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Abilita la riformattazione per gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ],
+            "preLaunchTask": "SET",
+            "miDebuggerPath": "/usr/bin/gdb"
+        },
+        {
             "name": "Windows - SET",
             "type": "cppdbg",
             "request": "launch",

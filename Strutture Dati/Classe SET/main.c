@@ -12,31 +12,22 @@ int main () {
     FILE *ptr1 = fopen("gruppo1.txt", "r");
     FILE *ptr2 = fopen("gruppo2.txt", "r");
 
-    //magari possibile senza i numeri, quando ritorno NULL mi fermo (magari)
-    int n_1, n_2;
-    fscanf(ptr1, "%d", &n_1);
-    fscanf(ptr2, "%d", &n_2);
-
-    int a = 0;
-
-    Item elemento;
-
-    for (a=0; a<n_1; a++) {
-        elemento = itemScan(ptr1);
-        SetFill(set1,elemento);
-    }
-
-    for (a=0; a<n_2; a++) {
-        elemento = itemScan(ptr2);
-        SetFill(set2,elemento);
-    }
-
+    SetFill(set1,ptr1);
+    SetFill(set2,ptr2);
+    
     SET unione = SetUnion(set1,set2);
+    SET intersezione = SetInter(set1,set2);
     
     FILE *save = fopen("result.txt", "w");
 
+    fprintf(save,"Insieme 1\n");
+    SetSave(set1,save);
+    fprintf(save,"\nInsieme 2\n");
+    SetSave(set2,save);
+    fprintf(save,"\nInsieme Unione 1-2\n");
     SetSave(unione,save);
-
+    fprintf(save,"\nInsieme Intersezione 1-2\n");
+    SetSave(intersezione,save);
     
 
     return 0;
