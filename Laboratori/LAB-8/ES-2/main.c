@@ -6,13 +6,13 @@ void stampa_soluzione_disposizioni(int *sol, int n);
 
 typedef struct test_ {
     int disp[4];
-    int rip[4];
+    int rip;
+    int pietra_rip;
     int val[4];
-    int max_rip;
 } test;
 
 
-int powerset_disposizioni_ripetute (int *sol, int n, int pos, int count, test pietre_preziose);
+int powerset_disposizioni_ripetute (int *sol, int n, int pos, int count, test pietre_preziose, int max_rip);
 
 char pietre[4] = {'Z','R','T','S'};
 
@@ -35,7 +35,10 @@ int main() {
         num_pietre = pietre_preziose.disp[0] + pietre_preziose.disp[1] + pietre_preziose.disp[2] + pietre_preziose.disp[3];
         for (int i=num_pietre; i>1; i--) {
             int *sol = calloc(i,i*sizeof(char));
-            count = powerset_disposizioni_ripetute(sol,i,0,0,pietre_preziose);
+            pietre_preziose.pietra_rip=0;
+            pietre_preziose.rip=0;
+            int max_rip = 3;
+            count = powerset_disposizioni_ripetute(sol,i,0,0,pietre_preziose, max_rip);
             //printf("Numero di soluzioni trovate lunghezza %d trovate sono: %d\n", i, count);
             if (count != 0) {
                 printf("Lunghezza Massima test %d è: %d\n", n+1, i);
@@ -47,11 +50,11 @@ int main() {
     return 0;
 }
 
-int powerset_disposizioni_ripetute (int *sol, int n, int pos, int count, test pietre_preziose) {
+int powerset_disposizioni_ripetute (int *sol, int n, int pos, int count, test pietre_preziose, int max_rip) {
 
     if (pos>=n) {
         //se funziona posso stampare la soluzione
-        //stampa_soluzione_disposizioni(sol,n);
+        stampa_soluzione_disposizioni(sol,n);
         return count+1;
     }
 
@@ -68,10 +71,19 @@ int powerset_disposizioni_ripetute (int *sol, int n, int pos, int count, test pi
                 continue;
         }
 
-        if()
+        if (a == pietre_preziose.pietra_rip) {
+            if (pietre_preziose.rip+1>max_rip) {
+                continue;
+            }
+            pietre_preziose.rip++;
+        } else {
+            pietre_preziose.pietra_rip = a;
+            pietre_preziose.rip=1;
+        }
+
         pietre_preziose.disp[a]--;
         sol[pos] = a;
-        count = powerset_disposizioni_ripetute(sol,n,pos+1,count,pietre_preziose);
+        count = powerset_disposizioni_ripetute(sol,n,pos+1,count,pietre_preziose, max_rip);
         //non ci interessa enumerare tutto lo spazio basta che troviamo una soluzione (quindi in realtà non ci serve neanche il contatore)
         if (count != 0) {
             return count;

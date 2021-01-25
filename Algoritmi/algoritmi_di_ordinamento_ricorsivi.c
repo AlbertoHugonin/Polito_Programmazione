@@ -63,7 +63,7 @@ void merge_sortR(int v[], int buff[], int l, int r) {
         return;
     //una chiamata per ciascun ramo
     merge_sortR(v,buff,l,q);
-    merge_sortR(v,buff,l,q);
+    merge_sortR(v,buff,q+1,r);
     //chiamiamo la merge che si occupa della ricombinazione quindi dell'unione di due sottovettori ordinati in uno ordinato 
     merge(v,buff,l,q,r);
 }
@@ -90,7 +90,7 @@ void merge(int v[], int buff[], int l, int q, int r) {
             }
             //nel caso non avessimo finito nessuno dei due vettori dobbiamo confrontare i due elementi
             if (v[i] <= v[j]) {
-                //elemento sinistro minore o uguale elemento destro -> prendiamo elemento sinitro
+                //elemento sinistro minore o uguale elemento destro -> prendiamo elemento sinistro
                 buff[k] = v[i++];
             }
             else {

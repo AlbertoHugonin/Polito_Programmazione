@@ -57,20 +57,28 @@ risultato bubble_sort(int v[], int n) {
     }
 
     //inizio algoritmo
+
     int l = 0, r = n-1, tmp;
+
     //ciclo esterno dall'inizio della parte disordinata
     for (int i=l; i<r; i++) {
         //ciclo dall'inizio parte disordinata a inizio parte ordinata
+
         res.iterazioni_per_ciclo_interno[i-l] = 0;
         res.num_totale_iterazioni++;
         res.iterazioni_ciclo_esterno++;
+
         for (int b=l; b<r-i+l; b++) {
+
             res.num_totale_iterazioni++;
             res.iterazioni_per_ciclo_interno[i-l]++;
+
             //se l'elemento corrente è maggiore dell'elemento successivo lo scambia, al giro dopo lo riprende e fa la stessa cosa con l'elemento successivo ancora,
             //r-i+1 rappresenta gli elementi l'inizio degli elementi già ordinati.
             if (res.V[b] > res.V[b+1]) {
+
                 res.scambi++;
+
                 tmp = res.V[b];
                 res.V[b] = res.V[b+1];
                 res.V[b+1] = tmp;
@@ -113,6 +121,7 @@ void insertion_sort_char(char V[], int n) {
 risultato insertion_sort(int v[], int n) {
 
     risultato res = initializer();
+    res.iterazioni_per_ciclo_interno[0] = 0;
 
     //copia dell'array per non modificare quello di partenza
     for (int a=0; a<n; a++) {
@@ -126,11 +135,12 @@ risultato insertion_sort(int v[], int n) {
     int j;
 
     //ciclo for e ciclo while interno T(n) = O(N^2) (caso peggiore se è ordinato al contrario)
-    res.iterazioni_per_ciclo_interno[0] = 0;
     for (int i = l+1; i <= r; i++) {
+
         res.iterazioni_per_ciclo_interno[i-l] = 0;
         res.iterazioni_ciclo_esterno++;
         res.num_totale_iterazioni++;
+
         //i estremo destro parte ordinata, i=0 sempre ordinato
         elem_corrente = res.V[i];
         //indice elem precedente
@@ -142,8 +152,10 @@ risultato insertion_sort(int v[], int n) {
             res.iterazioni_per_ciclo_interno[i-l]++;   
             res.scambi++;
             res.num_totale_iterazioni++;
+
             res.V[j+1] = res.V[j];
             j--;
+
         }
         //inseriscmo l'elemento al posto giusto nel vettore ordinato
         res.V[j+1] = elem_corrente;
@@ -169,20 +181,25 @@ risultato selection_sort(int v[], int n) {
     int tmp;
 
     for (int i=l; i<r; i++) {
+
         min = i;
+
         res.iterazioni_per_ciclo_interno[i-l] = 0;
         res.num_totale_iterazioni++;
         res.iterazioni_ciclo_esterno++;
 
         //trovare l'indice del minimo nella parte disordinata
         for (j=i+1; j<=r; j++) {
+
             res.num_totale_iterazioni++;
             res.iterazioni_per_ciclo_interno[i-l]++;
+
             if (res.V[j] < res.V[min]) {
                 min = j;
             }
         }
         res.scambi++;
+
         tmp = res.V[i];
         res.V[i] = res.V[min];
         res.V[min] = tmp;
@@ -205,12 +222,30 @@ risultato shell_sort(int v[], int n) {
     int l = 0;     //estremo sinistro
     int r = n-1;   //estremo destro
 
-    int h = 1;
     int j;
     int tmp;
 
-    //da finire
+    int h = 1;
+    n = r-l+1;
 
+    //calcolo sequenza
+    while(h<(n/3))
+        h = 3*h+1;
+
+    //applica insertion sort con elementi distanti h con h decrescente fino a 1
+    while( h>= 1) {
+        for (int i = h+l; i<= r; i++) {
+            j = i;
+            tmp = res.V[i];
+            while ( j >= l+h && tmp < res.V[j-h] ) {
+                res.V[j] = res.V[j-h];
+                j -= h;
+            }
+            res.V[j] = tmp;
+        }
+        h = h/3;
+    }
+    return res;
 }
 
 risultato counting_sort(int v[], int n, int k) {
