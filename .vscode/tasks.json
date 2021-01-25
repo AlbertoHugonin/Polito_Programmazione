@@ -130,6 +130,32 @@
 				"kind": "build",
 				"isDefault": true
 			}
+		},
+		{
+			"type": "shell",
+			"label": "CODA",
+			"command": "/usr/bin/gcc-7",
+			"args": [
+				"-g",
+				"${file}","${workspaceFolder}/Strutture Dati/Coda Semplice/queue.c", "${workspaceFolder}/Strutture Dati/Coda Semplice/item.c",
+				"-o",
+				"${fileDirname}/${fileBasenameNoExtension}",
+				"-I${workspaceFolder}/Algoritmi",
+				"-I${workspaceFolder}/Algoritmi/Calcolo Combinatorio",
+			],
+			"options": {
+				"cwd": "${fileDirname}"
+			},
+			"problemMatcher": [
+				"$gcc"
+			],
+			"windows": {
+				"command": "C:\\TDM-GCC-64\\bin\\gcc.exe"
+			  },
+			"group": {
+				"kind": "build",
+				"isDefault": true
+			}
 		}
 	]
 }
