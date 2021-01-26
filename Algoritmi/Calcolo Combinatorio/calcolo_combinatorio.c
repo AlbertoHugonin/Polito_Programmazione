@@ -3,7 +3,6 @@
 #include <stdlib.h>
 #include "calcolo_combinatorio.h"
 
-#undef MAIN
 //in alcuni serve l'ordinamento
 //#include <algoritmi_di_ordinamento.c>
 
