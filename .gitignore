@@ -36,7 +36,7 @@ $RECYCLE.BIN/
 *.msix
 *.msm
 *.msp
-*.exe
+main.exe
 # Windows shortcuts
 *.lnk
 
@@ -44,3 +44,4 @@ $RECYCLE.BIN/
 
 # Custom rules (everything added below won't be overriden by 'Generate .gitignore File' if you use 'Update' option)
 
+Laboratori/LAB-10/ES-0/main.exe
