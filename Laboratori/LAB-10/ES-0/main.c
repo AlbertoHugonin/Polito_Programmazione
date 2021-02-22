@@ -9,5 +9,5 @@ int main() {
     //vett soluzione ottima scandito da indice k
     int opt[n+1];
     int k;
-    return 0;
+    return 1;
 }
