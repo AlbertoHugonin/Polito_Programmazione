@@ -10,8 +10,6 @@
 				"${file}",
 				"-o",
 				"${fileDirname}/${fileBasenameNoExtension}",
-				"-I${workspaceFolder}/Algoritmi",
-				"-I${workspaceFolder}/Algoritmi/Calcolo Combinatorio",
 			],
 			"options": {
 				"cwd": "${fileDirname}"
@@ -114,8 +112,6 @@
 				"${file}","${workspaceFolder}/Strutture Dati/Classe SET/set.c", "${workspaceFolder}/Strutture Dati/Classe SET/item.c",
 				"-o",
 				"${fileDirname}/${fileBasenameNoExtension}",
-				"-I${workspaceFolder}/Algoritmi",
-				"-I${workspaceFolder}/Algoritmi/Calcolo Combinatorio",
 			],
 			"options": {
 				"cwd": "${fileDirname}"
@@ -140,8 +136,6 @@
 				"${file}","${workspaceFolder}/Strutture Dati/Coda Semplice/queue.c", "${workspaceFolder}/Strutture Dati/Coda Semplice/item.c",
 				"-o",
 				"${fileDirname}/${fileBasenameNoExtension}",
-				"-I${workspaceFolder}/Algoritmi",
-				"-I${workspaceFolder}/Algoritmi/Calcolo Combinatorio",
 			],
 			"options": {
 				"cwd": "${fileDirname}"
