@@ -14,3 +14,5 @@ void ItemShow(Item item, FILE *ptr);
 
 //ritorna chiave dell'elemento (in questo caso coincide con il value)
 Key Keyget(Item item);
+
+void ItemFree(Item item);

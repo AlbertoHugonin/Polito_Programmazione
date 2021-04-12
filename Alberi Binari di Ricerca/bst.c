@@ -5,6 +5,7 @@
 typedef struct Nodo_ {
 
     Item elemento;
+    struct Nodo_ *P;
     struct Nodo_ *left;
     struct Nodo_ *right;
 
@@ -16,24 +17,27 @@ struct BST_ {
     Nodo *z;
 };
 
-static Nodo *NEW(Item item, Nodo *l, Nodo *r);
+static Nodo *NEW(Item item, Nodo *l, Nodo *r, Nodo *p);
 static Nodo *InsertR(Nodo *corrente, Nodo *fine, Item nuovo);
 static Nodo *BSTSearchR(Nodo *corrente, Nodo *fine, Key key);
+static void BSTFreeR(Nodo *corrente, Nodo *fine);
+static int countR(Nodo *corrente, Nodo *fine);
 
 
 BST BstInit() {
 
     BST albero = malloc(sizeof(* albero));
-    albero->radice = (albero->z = NEW(ItemInit(),NULL,NULL));
+    albero->radice = (albero->z = NEW(ItemInit(),NULL,NULL,NULL));
     return albero;
 
 }
 
-static Nodo *NEW(Item item, Nodo *l, Nodo *r) {
+static Nodo *NEW(Item item, Nodo *l, Nodo *r, Nodo *p) {
     Nodo *n = malloc(sizeof(Nodo));
     n->elemento=item;
     n->left=l;
     n->right=r;
+    n->P=p;
     return n;
 }
 
@@ -72,4 +76,38 @@ static Nodo *BSTSearchR(Nodo *corrente, Nodo *fine, Key key) {
         return BSTSearchR(corrente->left,fine,key);
     }
     return corrente;
+}
+
+void BSTFree(BST albero) {
+    if (albero == NULL) return;
+    BSTFreeR(albero->radice,albero->z);
+    free(albero->radice);
+    free(albero);
+}
+
+static void BSTFreeR(Nodo *corrente, Nodo *fine) {
+
+    if (corrente = fine) {
+        return;
+    }
+
+    BSTFreeR(corrente->left, fine);
+    BSTFreeR(corrente->right, fine);
+    ItemFree(corrente->elemento);
+    free(corrente);
+    return;
+}
+
+static int countR(Nodo *corrente, Nodo *fine) {
+    if (corrente==fine) {
+        return 0;
+    }
+    return countR(corrente->right,fine) + countR(corrente->left,fine) + 1;
+}
+
+void BSTPrint(BST albero) {
+
+    int n = countR(albero->radice,albero->z);
+    return;
+
 }

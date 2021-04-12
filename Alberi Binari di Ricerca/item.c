@@ -31,3 +31,7 @@ void ItemShow(Item item, FILE *ptr) {
 Key Keyget(Item item) {
     return item;
 }
+
+void ItemFree(Item item) {
+    free(item);
+}
