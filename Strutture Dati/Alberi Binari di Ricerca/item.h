@@ -1,11 +1,12 @@
-typedef struct item_ *Item, *Key;
+typedef struct item_ *Item;
+typedef int *Key;
 
-#include <stdlib.h>
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 
 Item ItemInit();
-Item ItemScan(FILE *ptr);
+Item ItemScan(FILE *ptr, Key key);
 
 int ItemCompare(Item item1, Item item2);
 int KeyCompare(Key key1, Key key2);
@@ -16,3 +17,6 @@ void ItemShow(Item item, FILE *ptr);
 Key Keyget(Item item);
 
 void ItemFree(Item item);
+
+//ritorna la chiave a partire da un intero
+Key KeyScan(int k);
