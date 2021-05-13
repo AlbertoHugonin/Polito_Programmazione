@@ -11,7 +11,7 @@ int main() {
 
     Grafo grafo = GRAPHload(file);
     PrintAdj(grafo);
-
+    GRAPHdfs(grafo);
     return 0;
 
 }

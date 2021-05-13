@@ -28,12 +28,16 @@ Item ItemScan(FILE *ptr, Key key) {
     return elem;
 }
 
+char GetValue(Item item) {
+    return item->val;
+}
+
 int ItemCompare(Item item1, Item item2) {
     return item1->val - item2->val;
 }
 
 int KeyCompare(Key key1, Key key2) {
-    return key1 - key2;
+    return (int) *key1 - (int) *key2;
 }
 
 void ItemShow(Item item, FILE *ptr) {

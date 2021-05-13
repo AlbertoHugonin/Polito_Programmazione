@@ -8,5 +8,5 @@ Grafo GRAPHinit(int N);
 Grafo GRAPHload(FILE *file);
 void PrintAdj(Grafo grafo);
 
-
+//visita in profondità grafo
 void GRAPHdfs(Grafo grafo);

@@ -6,7 +6,7 @@
 #include <string.h>
 
 
-void dfsR(Grafo grafo, Arco arco, int *tempo, int *pre);
+void dfsR(Grafo grafo, Arco arco, int *tempo, int *pre, int *post, int *st);
 
 struct Grafo_ {
     //numero nodi grafo
@@ -21,22 +21,68 @@ struct Grafo_ {
 
 
 void GRAPHdfs(Grafo grafo) {
-    int *pre, *tempo;
+
+    int *pre, *post, *st, *tempo;
+    //vettore tempo di scoperta
     pre = malloc(grafo->N*sizeof(int));
+    //vettore tempo di fine elaborazione
+    post = malloc(grafo->N*sizeof(int));
+    //albero vista in profondita, ne basta uno per ciascun grafo, è un nuovo albero se nodo figlio di se stesso
+    st = malloc(grafo->N*sizeof(int));
+    //allocato dinamicamente perchè lo dobbiamo mantenere aggiornato tra piu' istanze della funzione ricorsiva
     tempo = malloc(sizeof(int));
     *tempo = 0;
 
+
+    //inizializzazione pre e post
     for (int a=0; a<grafo->N; a++) {
         pre[a] = -1;
+        post[a] = -1;
+        st[a] = -1;
     }
 
     Lista corrente = grafo->vettore_di_liste[0];
     Arco arco = GetArco(corrente,0);
-    dfsR(grafo,ArcoInit(GetSource(arco),GetSource(arco),0),tempo,pre);
+    //dobbiamo solo controllare che sia bianco quindi non ancora scoperto
+    dfsR(grafo,ArcoInit(GetSource(arco),GetSource(arco),0),tempo,pre,post,st);
+    //ciclo for
 }
 
-void dfsR(Grafo grafo, Arco arco, int *tempo, int *pre) {
+void dfsR(Grafo grafo, Arco arco, int *tempo, int *pre, int *post, int *st) {
 
+    //arco utilizzato per definire quelli dopo
+    Arco corrente;
+    int c=0;
+
+    //arco non dummy
+    if (isDummy(arco) != 0) {
+        //stampiamo arco dichiarando che è di tipo T perchè non è dummy
+        printf("(%c %c): T\n", GetValue(BSTSearch(grafo->tabella_di_simboli,KeyScan(GetSource(arco)))), GetValue(BSTSearch(grafo->tabella_di_simboli,KeyScan(GetDestination(arco)))));
+    }
+    //nell'albero della visita in profondità scriviamo dentro il nodo che stiamo esaminando il fatto che viene da source quindi da un certo padre
+    int D = GetDestination(arco);
+    st[D] = GetSource(arco);
+    pre[D] = (*tempo)++;
+    //ci poniamo sul nodo corrente (source) ed esploriamo tutti i nodi della lista di adiacenza
+    while (1) {
+        corrente = GetArco(grafo->vettore_di_liste[D],c);
+        if (corrente == NULL) {
+            //fine lista terminiamo
+            break;
+        }
+        //se arco non ancora visitato
+        if (pre[GetDestination(corrente)] == -1) {
+            dfsR(grafo,corrente,tempo,pre,post,st);
+        }
+        else {
+            //stampo informazioni per altri tipi di archi
+            if (pre[GetSource(arco)] < pre[GetDestination(corrente)]) {
+                printf("(%c %c): F\n", GetValue(BSTSearch(grafo->tabella_di_simboli,KeyScan(GetSource(arco)))), GetValue(BSTSearch(grafo->tabella_di_simboli,KeyScan(GetDestination(corrente)))));
+            }
+        }
+        c++;
+    }
+    post[D] = (*tempo)++;
 }
 
 
@@ -53,6 +99,7 @@ Grafo GRAPHinit(int N) {
     return grafo;
 }
 
+//puo' essere che non ci sia l'elenco di vertici all'inizio
 Grafo GRAPHload(FILE *file) {
     
     int N;

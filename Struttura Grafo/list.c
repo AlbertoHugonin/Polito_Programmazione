@@ -28,17 +28,21 @@ Lista ListaInit(Lista lista) {
     lista->NA=0;
     lista->testa = NULL;
     lista->coda = NULL;
-
     return lista;
 }
 
 Arco GetArco(Lista lista, int n) {
-    if (lista->NA < n) {
+    //nel caso che n non sia valido o la lista sia vuota
+    if (lista->NA < n || lista->NA == 0) {
         return NULL;
     }
     Nodo_l corrente = lista->testa;
-    for (int a=1; a<n; a++) {
+    for (int a=1; a<=n; a++) {
         corrente = corrente->next;
+        //da sistemare
+        if (corrente == NULL) {
+            return NULL;
+        }
     }
     return corrente->arco;
 }

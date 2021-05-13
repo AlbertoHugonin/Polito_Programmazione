@@ -20,3 +20,5 @@ void ItemFree(Item item);
 
 //ritorna la chiave a partire da un intero
 Key KeyScan(int k);
+
+char GetValue(Item item);

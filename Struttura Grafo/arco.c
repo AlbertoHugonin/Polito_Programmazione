@@ -33,3 +33,11 @@ void PrintArco(Arco arco) {
 int GetSource(Arco arco) {
     return arco->S;
 }
+
+int isDummy(Arco arco) {
+    return arco->S - arco->D;
+}
+
+int GetDestination(Arco arco) {
+    return arco->D;
+}
