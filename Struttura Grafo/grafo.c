@@ -1,12 +1,15 @@
 #include "grafo.h"
 #include "list.h"
+#include "../Strutture Dati/Coda Semplice/queue.h"
 
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
-
+//algoritmo di vista in profondità è ricorsivo
 void dfsR(Grafo grafo, Arco arco, int *tempo, int *pre, int *post, int *st);
+//algoritmo di vista in ampiezza è iterativo
+void bfs(Grafo grafo, Arco arco, int *tempo, int *pre, int *st);
 
 struct Grafo_ {
     //numero nodi grafo
@@ -40,7 +43,7 @@ void GRAPHdfs(Grafo grafo) {
         post[a] = -1;
         st[a] = -1;
     }
-
+    //aggiungere il for per ogni vertice TODO
     Lista corrente = grafo->vettore_di_liste[0];
     Arco arco = GetArco(corrente,0);
     //dobbiamo solo controllare che sia bianco quindi non ancora scoperto
@@ -49,7 +52,6 @@ void GRAPHdfs(Grafo grafo) {
 }
 
 void dfsR(Grafo grafo, Arco arco, int *tempo, int *pre, int *post, int *st) {
-
     //arco utilizzato per definire quelli dopo
     Arco corrente;
     int c=0;
@@ -85,7 +87,53 @@ void dfsR(Grafo grafo, Arco arco, int *tempo, int *pre, int *post, int *st) {
     post[D] = (*tempo)++;
 }
 
+void GRAPHbfs(Grafo grafo) {
+    int *pre, *st, *tempo;
+    //vettore tempo di scoperta
+    pre = malloc(grafo->N*sizeof(int));
+    //albero vista in ampiezza, rappresenta tutti i nodi raggiungibili da quello iniziale
+    st = malloc(grafo->N*sizeof(int));
+    //allocato dinamicamente perchè lo dobbiamo mantenere aggiornato tra piu' istanze della funzione ricorsiva
+    tempo = malloc(sizeof(int));
+    *tempo = 0;
 
+    //inizializzazione pre e post
+    for (int a=0; a<grafo->N; a++) {
+        pre[a] = -1;
+        st[a] = -1;
+    }
+    Arco arco = GetArco(grafo->vettore_di_liste[0],0);
+    bfs(grafo,ArcoInit(GetSource(arco),GetSource(arco),0),tempo,pre,st);
+    //stampiamo l'albero della visita in ampiezza risultante
+    // for (int a=0; a<grafo->N; a++) {
+    //     printf("%c padre di %c");
+    // }
+}
+
+//algoritmo iterarivo di vistac in ampiezza
+void bfs(Grafo grafo, Arco arco, int *tempo, int *pre, int *st) {
+QueueInit(grafo->N);
+QueuePut(arco);
+//finche la coda non è vuota
+while (QueueEmpty() != 0) {
+    //vettore pre andiamo a prendere la sorgente dell'arco nella coda
+    if (pre[ GetSource(arco = QueueGet())] == -1) {
+
+
+        pre[GetSource(arco)] = (*tempo)++;
+        st[GetSource(arco)] = GetDestination(arco);
+
+        //dobbiamo implementarlo come lista delle adiacenze a differenza di come viene fatto sul libro
+        int c=0;
+        while (1) {
+        arco = GetArco(grafo->vettore_di_liste[GetDestination(arco)],c);
+        if (pre[GetDestination(arco)] == -1) {
+            QueuePut(ArcoInit(GetSource(arco), GetDestination(arco),1));
+        }
+        }
+    }
+}
+}
 
 Grafo GRAPHinit(int N) {
     Grafo grafo = malloc(sizeof(grafo));

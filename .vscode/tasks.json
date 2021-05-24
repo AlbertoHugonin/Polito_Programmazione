@@ -133,7 +133,7 @@
 			"command": "/usr/bin/gcc-7",
 			"args": [
 				"-g",
-				"${file}","${workspaceFolder}/Strutture Dati/Coda Semplice/queue.c", "${workspaceFolder}/Strutture Dati/Coda Semplice/item.c",
+				"${file}","${workspaceFolder}/Struttura Grafo/arco.c","${workspaceFolder}/Strutture Dati/Coda Semplice/queue.c", "${workspaceFolder}/Strutture Dati/Coda Semplice/item.c",
 				"-o",
 				"${fileDirname}/${fileBasenameNoExtension}",
 			],
@@ -181,7 +181,7 @@
 			"command": "/usr/bin/gcc-7",
 			"args": [
 				"-g",
-				"${file}","${workspaceFolder}/Struttura Grafo/arco.c","${workspaceFolder}/Struttura Grafo/list.c","${workspaceFolder}/Struttura Grafo/grafo.c","${workspaceFolder}/Strutture Dati/Alberi Binari di Ricerca/bst.c", "${workspaceFolder}/Strutture Dati/Alberi Binari di Ricerca/item.c",
+				"${file}","${workspaceFolder}/Strutture Dati/Coda Semplice/queue.c","${workspaceFolder}/Struttura Grafo/arco.c","${workspaceFolder}/Struttura Grafo/list.c","${workspaceFolder}/Struttura Grafo/grafo.c","${workspaceFolder}/Strutture Dati/Alberi Binari di Ricerca/bst.c", "${workspaceFolder}/Strutture Dati/Alberi Binari di Ricerca/item.c",
 				"-o",
 				"${fileDirname}/${fileBasenameNoExtension}",
 			],

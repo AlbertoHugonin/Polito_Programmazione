@@ -1,5 +1,6 @@
 #include "../Strutture Dati/Alberi Binari di Ricerca/bst.h"
 
+
 typedef struct Grafo_ *Grafo;
 
 //inizializza il grado tenendo conto del numero di vertici
@@ -10,3 +11,6 @@ void PrintAdj(Grafo grafo);
 
 //visita in profondità grafo
 void GRAPHdfs(Grafo grafo);
+
+//visita in ampiezza grafo
+void GRAPHbfs(Grafo grafo);
