@@ -4,13 +4,14 @@
 
 //modello del calcolo del powerset con disposizioni ripetute
 int powerset_disposizioni_ripetute (int *val, int *sol, int n, int pos, int count, int *n_best, int *best_sol);
-//verifica la validità della soluzione e ritorna la sua lunghezza
+//verifica la validità della soluzione e ritorna la sua lunghezza, ritorna -1 se non valida, >= 0 se valida
 int valida_soluzione(int *val, int *sol, int n);
 
 
 int main() {
 
     int N = 9; 
+    //dato dalla consegna
     int V[] = {4, 2, 5, 9, 7, 6, 10, 3, 1};
 
 
@@ -33,11 +34,11 @@ int main() {
 
 }
 
-
 int valida_soluzione(int *val, int *sol, int n) {
 
     int *sol_c = malloc(n*sizeof(int));
 
+    //riferimento nel vettore sol_c, soluzione "vera"
     int indice = 0;
 
     //generiamo il vettore risultante a partire dalla soluzione, lo facciamo per comodità
@@ -48,32 +49,49 @@ int valida_soluzione(int *val, int *sol, int n) {
         }
     }
 
-    //prima della verifica abbiamo 512 soluzioni possibili
-    //adesso eliminiamo tutte le sequenze che iniziano in maniera decrescente (è necessario?, il testo dice che sono anche valide quelle decrescenti)
-    if (sol_c[1] < sol_c[0]) {
-        return 0;
-    }
-
     //indica l'ordinamento attuale, 0 per crescente, 1 per decrescente
     int ord = 0;
-    //adesso controlliamo che quando viene raggiunto il massimo la sequenza cominci a scendere e non ricominci di nuovo a risalire
+
+    //prima della verifica abbiamo 512 soluzioni possibili
+    //adesso controlliamo con che ordinamento inizia la soluzione
+    if (sol_c[1] < sol_c[0]) {
+        //ordinamento descrescente
+        ord = 1;
+    }
+
+    //indica il numero di cambi di ordinamento che abbiamo fatto, se maggiore di uno scartiamo la soluzione
+    int n_cambi = 0;
+
+    //adesso iteriamo su tutto il resto della soluzione controllando quante volte cambia l'ordinamento
     for (int a=1; a<indice-1; a++) {
 
-        //quando diventa decrescente cambiamo l'ordinamento
-        if (sol_c[a] > sol_c[a+1]) {
+        //ordinamento decrescente o rimane uguale
+        if (sol_c[a] >= sol_c[a+1]) {
+            //se l'ordinamento era crescente allora aumentiamo il numero n_cambi
+            if (ord == 0) {
+                n_cambi++;
+            }
+            //aggiorniamo l'ordinamento corrente
             ord = 1;
         }
         else {
-            //se la sequenza diventa crescente ma prima era decrescente dobbiamo scartarla
+            //ordinamento crescente
+            //se siamo arrivati da un ordinamento decrescente incrementiamo il numero di cambi
             if (ord == 1) {
-                return 0;
+                n_cambi++;
             }
+            //aggiorniamo l'ordinamento corrente
+            ord = 0;
+        }
+        //se n_cambi è maggiore di uno allora dobbiamo scartare la soluzione
+        if (n_cambi > 1) {
+            return -1;
         }
     }
 
-    //ritorniamo la lunghezza della soluzione
+    //ritorniamo la lunghezza della soluzione se valida > 0
     return indice;
-    //notiamo come questa operazione di verifica non scarta le soluzioni solo crescenti, pero' scarta solo quelle decrescenti
+    //notiamo come questa operazione di verifica non scarta le soluzioni solo crescenti e neanche quelle solo decrescenti, scarta solo quelle che cambiano
 }
 
 int powerset_disposizioni_ripetute (int *val, int *sol, int n, int pos, int count, int *n_best, int *best_sol) {
@@ -81,7 +99,7 @@ int powerset_disposizioni_ripetute (int *val, int *sol, int n, int pos, int coun
     if (pos>=n) {
 
         int lunghezza = valida_soluzione(val,sol,n);
-        if (lunghezza == 0) {
+        if (lunghezza == -1) {
             //se la lunghezza è uguale a 0 non è una soluzione valida
             return count;
         }
