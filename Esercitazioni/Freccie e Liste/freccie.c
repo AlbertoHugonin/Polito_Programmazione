@@ -1,6 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+
+//con disposizioni ripetute complessità 2^n, maniera costosa
 void powerset(int sol[], int A[], int scontri[], int n, int pos, int sol_ottima[], int *diff);
 int controllo_equilibrio_cardinalita(int sol[], int A[], int n);
 

@@ -4,7 +4,7 @@
 		{
 			"type": "shell",
 			"label": "Normale",
-			"command": "/usr/bin/gcc-7",
+			"command": "/usr/bin/gcc-10",
 			"args": [
 				"-g",
 				"${file}",
@@ -28,7 +28,7 @@
 		{
 			"type": "shell",
 			"label": "Giochi di Ruolo",
-			"command": "/usr/bin/gcc-7",
+			"command": "/usr/bin/gcc-10",
 			"args": [
 				"-g",
 				"${file}","${workspaceFolder}/Laboratori/LAB-9/Giochi di Ruolo Modulare/inventario.c", "${workspaceFolder}/Laboratori/LAB-9/Giochi di Ruolo Modulare/personaggi.c",
@@ -53,8 +53,34 @@
 		},
 		{
 			"type": "shell",
+			"label": "Lista Esercitazione",
+			"command": "/usr/bin/gcc-10",
+			"args": [
+				"-g",
+				"${file}","${workspaceFolder}/Esercitazioni/Freccie e Liste/Lista/lista.c", 
+				"-o",
+				"${fileDirname}/${fileBasenameNoExtension}",
+				"-I${workspaceFolder}/Algoritmi",
+				"-I${workspaceFolder}/Algoritmi/Calcolo Combinatorio",
+			],
+			"options": {
+				"cwd": "${fileDirname}"
+			},
+			"problemMatcher": [
+				"$gcc"
+			],
+			"windows": {
+				"command": "C:\\TDM-GCC-64\\bin\\gcc.exe"
+			  },
+			"group": {
+				"kind": "build",
+				"isDefault": true
+			}
+		},
+		{
+			"type": "shell",
 			"label": "Giochi di Ruolo ADT",
-			"command": "/usr/bin/gcc-7",
+			"command": "/usr/bin/gcc-10",
 			"args": [
 				"-g",
 				"${file}","${workspaceFolder}/Laboratori/LAB-10/Giochi di Ruolo Modulare ADT/inventario.c", "${workspaceFolder}/Laboratori/LAB-10/Giochi di Ruolo Modulare ADT/elem_inv.c", "${workspaceFolder}/Laboratori/LAB-10/Giochi di Ruolo Modulare ADT/equip_array.c",  "${workspaceFolder}/Laboratori/LAB-10/Giochi di Ruolo Modulare ADT/personaggi.c",  "${workspaceFolder}/Laboratori/LAB-10/Giochi di Ruolo Modulare ADT/elem_pers.c",
@@ -80,7 +106,7 @@
 		{
 			"type": "shell",
 			"label": "Calcolo Combinatorio",
-			"command": "/usr/bin/gcc-7",
+			"command": "/usr/bin/gcc-10",
 			"args": [
 				"-g",
 				"${file}", "${workspaceFolder}/Algoritmi/Calcolo Combinatorio/calcolo_combinatorio.c",
@@ -106,7 +132,7 @@
 		{
 			"type": "shell",
 			"label": "SET",
-			"command": "/usr/bin/gcc-7",
+			"command": "/usr/bin/gcc-10",
 			"args": [
 				"-g",
 				"${file}","${workspaceFolder}/Strutture Dati/Classe SET/set.c", "${workspaceFolder}/Strutture Dati/Classe SET/item.c",
@@ -130,7 +156,7 @@
 		{
 			"type": "shell",
 			"label": "CODA",
-			"command": "/usr/bin/gcc-7",
+			"command": "/usr/bin/gcc-10",
 			"args": [
 				"-g",
 				"${file}","${workspaceFolder}/Struttura Grafo/arco.c","${workspaceFolder}/Strutture Dati/Coda Semplice/queue.c", "${workspaceFolder}/Strutture Dati/Coda Semplice/item.c",
@@ -154,7 +180,7 @@
 		{
 			"type": "shell",
 			"label": "BST",
-			"command": "/usr/bin/gcc-7",
+			"command": "/usr/bin/gcc-10",
 			"args": [
 				"-g",
 				"${file}","${workspaceFolder}/Strutture Dati/Alberi Binari di Ricerca/bst.c", "${workspaceFolder}/Strutture Dati/Alberi Binari di Ricerca/item.c",
@@ -178,7 +204,7 @@
 		{
 			"type": "shell",
 			"label": "Grafo con BST",
-			"command": "/usr/bin/gcc-7",
+			"command": "/usr/bin/gcc-10",
 			"args": [
 				"-g",
 				"${file}","${workspaceFolder}/Strutture Dati/Coda Semplice/queue.c","${workspaceFolder}/Struttura Grafo/arco.c","${workspaceFolder}/Struttura Grafo/list.c","${workspaceFolder}/Struttura Grafo/grafo.c","${workspaceFolder}/Strutture Dati/Alberi Binari di Ricerca/bst.c", "${workspaceFolder}/Strutture Dati/Alberi Binari di Ricerca/item.c",
