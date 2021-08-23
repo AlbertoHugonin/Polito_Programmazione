@@ -49,7 +49,7 @@ void separa(int **mat, int nr, int nc, int **w, int **b, int *nw, int *nb) {
 
 int **malloc2dR(FILE *file, int nr, int nc) {
 
-    int **matrice = malloc(nr*sizeof(int));
+    int **matrice = malloc(nr*sizeof(int *));
 
     for (int r=0; r<nr; r++) {
         matrice[r] = malloc(nc*sizeof(int));

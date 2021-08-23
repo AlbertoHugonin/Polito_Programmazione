@@ -27,6 +27,32 @@
 		},
 		{
 			"type": "shell",
+			"label": "Albero Semplice",
+			"command": "/usr/bin/gcc-10",
+			"args": [
+				"-g",
+				"${file}", "${workspaceFolder}/Strutture Dati/Albero Binario Semplice/albero.c",
+				"-o",
+				"${fileDirname}/${fileBasenameNoExtension}",
+				"-I${workspaceFolder}/Strutture Dati/Albero Binario Semplice/",
+			],
+			"options": {
+				"cwd": "${fileDirname}"
+			},
+			"problemMatcher": [
+				"$gcc"
+			],
+			"windows": {
+				"command": "C:\\TDM-GCC-64\\bin\\gcc.exe"
+			  },
+			"group": {
+				"kind": "build",
+				"isDefault": true
+			}
+		},
+		
+		{
+			"type": "shell",
 			"label": "Giochi di Ruolo",
 			"command": "/usr/bin/gcc-10",
 			"args": [
