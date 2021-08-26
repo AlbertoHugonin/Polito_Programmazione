@@ -27,6 +27,30 @@
 		},
 		{
 			"type": "shell",
+			"label": "31/01/2019 - 18",
+			"command": "/usr/bin/gcc-10",
+			"args": [
+				"-g",
+				"${file}","${workspaceFolder}/Temi Esame/2019/31 Gennaio/18 Punti/grafo.c",
+				"-o",
+				"${fileDirname}/${fileBasenameNoExtension}",
+			],
+			"options": {
+				"cwd": "${fileDirname}"
+			},
+			"problemMatcher": [
+				"$gcc"
+			],
+			"windows": {
+				"command": "C:\\TDM-GCC-64\\bin\\gcc.exe"
+			  },
+			"group": {
+				"kind": "build",
+				"isDefault": true
+			}
+		},
+		{
+			"type": "shell",
 			"label": "Albero Semplice",
 			"command": "/usr/bin/gcc-10",
 			"args": [
