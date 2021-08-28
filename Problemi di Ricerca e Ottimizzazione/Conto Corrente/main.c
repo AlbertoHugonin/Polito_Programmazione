@@ -40,15 +40,15 @@ int permuzazioni_semplici(int *val, int *sol, int *mark, int n, int pos, int *be
 
     if (pos>=n) {
         //caso terminale controlliamo la soluzione contenuta interamente nel vettore sol
-        for (int b=0; b<n; b++) {
-            fprintf(result,"%d ", sol[b]);
-        }
-        fprintf(result, "\n");
-        (*count)++;
-        if (*count > 1000) {
-            fflush(result);
-            *count = 0;
-        }
+        // for (int b=0; b<n; b++) {
+        //     fprintf(result,"%d ", sol[b]);
+        // }
+        // fprintf(result, "\n");
+        // (*count)++;
+        // if (*count > 1000) {
+        //     fflush(result);
+        //     *count = 0;
+        // }
         //calcolo soluzione per ottimalità
         check(sol,n,best_sol,best_diff);
 
