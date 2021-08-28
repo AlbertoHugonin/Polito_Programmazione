@@ -49,12 +49,12 @@ graph GRAPHload(graph grafo, FILE *file) {
         find_nodo = 0;
         //grafo->tabella_simboli[N-1]
         for (int n=0; n<N; n++) {
-            if (grafo->tabella_simboli[n] == nodo) {
-                find_nodo=1;
-            }
+            // if (grafo->tabella_simboli[n] == nodo) {
+            //     find_nodo=1;
+            // }
         }
         if (find_nodo == 0) {
-            grafo->tabella_simboli[N-1] = nodo;
+            // grafo->tabella_simboli[N-1] = nodo;
             N++;
             grafo->N_nodi++;
             //alla fine c'è ne uno in piu'
