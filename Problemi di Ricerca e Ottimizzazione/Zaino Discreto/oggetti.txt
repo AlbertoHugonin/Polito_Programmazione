@@ -1,0 +1,4 @@
+Oro 10 8
+Argento 6 4
+Piombo 8 2
+Uranio 9 3
