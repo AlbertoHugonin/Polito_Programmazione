@@ -1,0 +1,34 @@
+
+
+- REALLOCARE puntatore in caso di spostamento
+
+oggetti = realloc(oggetti,(N)*sizeof(struct Item_ *));
+
+- 
+
+int alberto1,alberto2,alberto3;
+int alberto1 = 3, alberto2 = 4;
+
+//termina in caso di raggiungimento fine file
+if (!feof) {
+    return 0;
+}
+
+
+//piu' sicuro controllare il numero di variabili prese rispetto a controllare il puntatore ritornato
+while (fscanf("%d", &intero) == 1) {
+
+}
+
+
+// usare puts per scrivere se non dobbiamo usare variabili, è piu' sicuro
+puts("");
+
+//in caso di adt di prima classe
+
+typedef struct LISTA_ lista_; 
+
+lista_ *lista = malloc(sizeof(lista_ *));
+
+//nel caso di struct normali usare sizeof(struct LISTA_ *)
+
