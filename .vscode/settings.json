@@ -4,5 +4,9 @@
     "**/*.exe": true,
     "Algoritmi/Calcolo Combinatorio/calcolo_combinatorio": true,
     "Algoritmi/powerset": true,
+  },
+  "files.associations": {
+    "scaffale.h": "c",
+    "stdio.h": "c"
   }
 }

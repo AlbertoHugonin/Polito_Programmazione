@@ -32,3 +32,66 @@ lista_ *lista = malloc(sizeof(lista_ *));
 
 //nel caso di struct normali usare sizeof(struct LISTA_ *)
 
+
+count%2 == 0 se non ha resto della divisione per 2
+
+
+//dentro un ciclo for posso inizializzare piu' variabili
+
+int a,b;
+
+for (a=b=0; a<N; a++) {
+    .......
+}
+
+
+//lavorare sulle diagonali
+
+  for (d=0; d<2*N-1; d++) {
+    n=0;
+    for (r=0; r<N; r++) {
+      c = d-r;
+      if ((c>=0)&& (c<N))
+        if (s[r][c]!=0)
+          n++;
+    }
+    if (n>1)
+      return 0;
+  }
+  for (d=0; d<2*N-1; d++) {
+    n=0;
+    for (r=0; r<N; r++) {
+      c = r-d+N-1;
+      if ((c>=0)&& (c<N))
+        if (s[r][c]!=0)
+          n++;
+    }
+    if (n>1)
+      return 0;
+  }
+
+  /////////////////////
+
+
+  Ricordare che per allocazione di stringhe devo allocare un posto in piu' per il carattere di terminazione o a capo in un file
+
+  Ricordare che dopo malloc se puntatore == NULL allora la memoria non è stata allocata correttamente
+
+  Fine stringa o carattere nullo = '\0'
+
+
+  return 0 è il ritono in caso di successo if (ritorno) {....}
+
+
+  ///operazioni nel return
+  return ((n1+n2) == n3);
+
+
+//per scorrere matrice come mettore
+
+int pos; livello vettore
+int dim dimensione matr
+
+i = pos / dim;
+j = pos % dim;
+matr[i][j];

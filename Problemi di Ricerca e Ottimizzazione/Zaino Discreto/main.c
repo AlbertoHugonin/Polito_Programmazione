@@ -185,6 +185,7 @@ void disposizioni_ripetute_con_ottimizzazioni(item *val, int *sol, int n, int po
 }
 
 //variante con ottimizzazione e pruning
+
 void disposizioni_ripetute_con_ottimizzazioni_e_pruning(item *val, int *sol, int n, int pos, int *best_sol, int *best_val, int cap, int peso, int valore) {
 
 
@@ -209,7 +210,8 @@ void disposizioni_ripetute_con_ottimizzazioni_e_pruning(item *val, int *sol, int
     peso += GetPeso(val[pos]);
     valore += GetVal(val[pos]);
 
-    //se prendendo l'elemento il peso è già piu' grande del cap non ha senso andare avanti e sprecare tempo PRUNING
+    //PRUNING CON VINCOLO STATICO
+    //se prendendo l'elemento il peso è già piu' grande del cap non ha senso andare avanti e sprecare tempo
     if (peso>cap) {
         return;
     }
