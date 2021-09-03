@@ -18,16 +18,16 @@ struct lista_ {
     link coda;
 };
 
-LIST listacreate() {
+LIST listacreate(int a, int b) {
 
     LIST list = malloc(sizeof(struct lista_ *));
     list->testa = malloc(sizeof(struct nodo_ *));
-    list->testa->k = 1;
+    list->testa->k = a;
     list->testa->prev=NULL;
     link corrente = list->testa;
-    for (int a=2; a<5; a++) {
+    for (a; a<b; a++) {
         corrente->next = malloc(sizeof(struct nodo_ *));
-        corrente->next->k = a;
+        corrente->next->k = a+1;
         corrente->next->prev=corrente;
         corrente=corrente->next;
     }
@@ -37,41 +37,54 @@ LIST listacreate() {
 }
 
 void purge(LIST l, int div) {
-    
-    //inizialmente pensavo di aggiungere un intero per tenere conto degli elementi poi ho scartato
-    //l'idea quindi devo mettere l->testa ==
 
     if (l->testa == NULL) { return; }
     link corrente = l->testa;
     //se la divisione per div ritorna del resto allora cancelliamo il nodo testa
-    if (l->testa->k%div != 0) {
+    if ((l->testa->k)%div != 0) {
+
+        if (l->testa->next == NULL) {
+            free(l->testa);
+            l->testa=NULL;
+            l->coda=NULL;
+            return;
+        }
+
         l->testa->next->prev = NULL;
         l->testa = corrente->next;
+
         if (corrente == l->coda) {
             l->coda = l->testa;
         }
-    free(corrente);
+        free(corrente);
     }
     corrente = l->testa;
+
+    if (l->testa->next != NULL) {
+        corrente = l->testa->next;
+    } 
+    
     while (corrente->next != NULL) {
-        corrente = corrente->next;
+
         link back = corrente;
         if (corrente->k%div != 0) {
-            //possiamo essere per forza al centro della lista, l'ultimo elemento non viene m
-            //ai preso in considerazione dal ciclo
+            //possiamo essere per forza al centro della lista, l'ultimo elemento non viene mai preso in considerazione dal ciclo
             corrente->next->prev = corrente->prev;
             corrente->prev->next = corrente->next;
             corrente = back->next;
             free(back);
+            continue;
         }
+        corrente = back->next;
+
     }
     if (corrente->k%div == 0) {
         return;
     }
 
     //il ciclo esce all'ultimo elemento che dobbiamo cancellarlo a parte
-    free(corrente->next);
-    corrente->next = NULL;
-    l->coda = corrente;
+    corrente->prev->next=NULL;
+    l->coda=corrente->prev;
+    free(corrente);
     return;
 }

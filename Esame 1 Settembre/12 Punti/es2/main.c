@@ -5,7 +5,7 @@
 
 int main() {
 
-    LIST lista = listacreate();
+    LIST lista = listacreate(0,5);
     //se resto per 2 uguale 0 allora entro
     purge(lista,2);
     return 0;
