@@ -5,8 +5,10 @@
 
 int main() {
 
-    LIST lista = listacreate(0,5);
+    LIST lista = listacreate(0,9);
     //se resto per 2 uguale 0 allora entro
-    purge(lista,2);
+    StampaLista(lista);
+    purge(lista,3);
+    StampaLista(lista);
     return 0;
 }

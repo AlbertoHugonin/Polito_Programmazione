@@ -4,16 +4,16 @@
 #include <string.h>
 
 
-void solve(char *target, part *P, int nParts);
-void solveR( int *val, int *mark, int n, int *sol, int k, int pos, part *P, char *target, int *best_costo, int costo, int *best_sol, int *best_card);
-
-int check(int *sol, int pos, part *P, char *target);
-
 typedef struct {
 char *s;
 int pos;
 int costo;
 } part;
+
+void solve(char *target, part *P, int nParts);
+void solveR( int *val, int *mark, int n, int *sol, int k, int pos, part *P, char *target, int *best_costo, int costo, int *best_sol, int *best_card);
+
+int check(int *sol, int pos, part *P, char *target);
 
 
 
@@ -54,6 +54,15 @@ void solve(char *target, part *P, int nParts) {
     int best_card = strlen(target);
 
     solveR(val,mark,nParts,sol,strlen(target),0,P,target, &best_costo, costo, best_sol,&best_card);
+
+    //stampa soluzione
+    puts("Soluzione Migliore:");
+    int a=0;
+    while(best_sol[a] != -1) {
+        printf("P%d ", best_sol[a]);
+        a++;
+    }
+    printf("\nCosto %d, cardinalità soluzione %d\n", best_costo, best_card);
 
     return;
 }

@@ -9,3 +9,4 @@ typedef struct lista_ *LIST;
 //crea una lista con interi tra a e b
 LIST listacreate(int a, int b);
 void purge(LIST l, int div);
+void StampaLista(LIST lista);

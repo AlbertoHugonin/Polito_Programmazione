@@ -36,6 +36,23 @@ LIST listacreate(int a, int b) {
     return list;
 }
 
+void StampaLista(LIST lista) {
+    if (lista->testa==NULL) {
+        return;
+    }
+    link corrente = lista->testa;
+    while (corrente != NULL) {
+        printf("%d", corrente->k);
+        if (corrente->next!=NULL) {
+            printf("->");
+        }
+        corrente=corrente->next;
+    }
+    puts("");
+    fflush(stdout);
+    return;
+}
+
 void purge(LIST l, int div) {
 
     if (l->testa == NULL) { return; }
