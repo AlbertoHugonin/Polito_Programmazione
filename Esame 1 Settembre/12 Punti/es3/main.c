@@ -41,7 +41,7 @@ void solve(char *target, part *P, int nParts) {
 
     int l = 0;
     while(1) {
-        if (isalpha(target[l])) {
+        if (isalpha(target[l]) && target[l] != '\0') {
             l++;
         } else {
             break;
