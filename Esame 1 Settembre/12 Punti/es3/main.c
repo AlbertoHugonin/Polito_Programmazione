@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <limits.h>
 #include <string.h>
-
+#include <ctype.h>
 
 typedef struct {
 char *s;
@@ -13,7 +13,7 @@ int costo;
 void solve(char *target, part *P, int nParts);
 void solveR( int *val, int *mark, int n, int *sol, int k, int pos, part *P, char *target, int *best_costo, int costo, int *best_sol, int *best_card);
 
-int check(int *sol, int pos, part *P, char *target);
+int check(int *sol, int pos, part *P, char *target, int k);
 
 
 
@@ -39,21 +39,30 @@ int main() {
 
 void solve(char *target, part *P, int nParts) {
 
+    int l = 0;
+    while(1) {
+        if (isalpha(target[l])) {
+            l++;
+        } else {
+            break;
+        }
+    }
+
     int *val = malloc(nParts*sizeof(int));
     
     for (int a=0; a<nParts; a++) {
     val[a] = a;
     }
 
-    int *sol = malloc(strlen(target)*sizeof(int));
+    int *sol = malloc(l*sizeof(int));
     int *mark = calloc(nParts,sizeof(int));
     int best_costo = INT_MAX; //ricordare di includere limits.h
     int costo = 0;
-    int *best_sol = malloc(strlen(target)*sizeof(int));
+    int *best_sol = malloc(l*sizeof(int));
 
-    int best_card = strlen(target);
+    int best_card = l;
 
-    solveR(val,mark,nParts,sol,strlen(target),0,P,target, &best_costo, costo, best_sol,&best_card);
+    solveR(val,mark,nParts,sol,l,0,P,target, &best_costo, costo, best_sol,&best_card);
 
     //stampa soluzione
     puts("Soluzione Migliore:");
@@ -71,9 +80,9 @@ void solve(char *target, part *P, int nParts) {
 //1 se non possiamo prenderlo
 //0 se possiamo prenderlo
 //2 se la soluzione è completa
-int check(int *sol, int pos, part *P, char *target) {
+int check(int *sol, int pos, part *P, char *target, int k) {
 
-    if (strlen(P[sol[pos]].s) > strlen (target)) {
+    if (strlen(P[sol[pos]].s) > k) {
         return 1;
     }
 
@@ -91,14 +100,13 @@ int check(int *sol, int pos, part *P, char *target) {
     }
 
     //adesso vediamo se il posto era già occupato, questo controllo è meglio metterlo all'inizio
-    int elem = strlen(target);
     
     for (int a=0; a<pos; a++) {
 
         inizio_corrente=P[sol[a]].pos;
         lunghezza_corrente=strlen(P[sol[a]].s)-1;
 
-        elem -= lunghezza_corrente+1;
+        k -= lunghezza_corrente+1;
         
         if ((inizio >= inizio_corrente && inizio <= inizio_corrente + lunghezza_corrente) || (inizio+strlen(stringa)-1 >= inizio_corrente && inizio+strlen(stringa)-1 <= inizio_corrente + lunghezza_corrente)) {
             return 1;
@@ -106,8 +114,8 @@ int check(int *sol, int pos, part *P, char *target) {
     }
 
     //abbiamo appurato che possiamo inserire questo elemento nella soluzione, adesso verifichiamo se esso genera la soluzione
-    elem -= strlen(stringa);
-    if (elem == 0) {
+    k -= strlen(stringa);
+    if (k == 0) {
         return 2;
     }
 
@@ -128,7 +136,7 @@ void solveR( int *val, int *mark, int n, int *sol, int k, int pos, part *P, char
         if (mark[i] == 0) {
             //pruning, prima di prendere elemento vediamo se va bene se no lo saltiamo
             sol[pos] = val[i];
-            int flag = check(sol,pos,P,target);
+            int flag = check(sol,pos,P,target,k);
 
             if (flag== 0) {
                 mark[i]=1;
