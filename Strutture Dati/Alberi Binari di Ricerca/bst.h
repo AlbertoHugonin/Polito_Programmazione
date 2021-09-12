@@ -5,6 +5,18 @@ BST BstInit();
 
 void BSTInsertR(BST albero, Item nuovo);
 
+int BSTCount(BST albero);
+
+int AltezzaMassima(BST albero);
+
+int NFoglie(BST albero);
+int BSTCount_un_figlio(BST albero);
+
+
+
+//cancella figli sinistro 
+BST BSTCancellaFigliSinistriDaK(BST albero,int k);
+
 //BST SearchByIndex trova l'item a partire dalla chiave
 Item BSTSearch(BST albero, Key key);
 

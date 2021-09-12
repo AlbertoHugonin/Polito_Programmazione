@@ -19,7 +19,7 @@ typedef struct Nodo_ {
    struct Nodo_ *next;
    struct Nodo_ *last;
 
-} Nodo;
+} Nodo, *link;
 
 //struttura wrapper
 typedef struct Lista_ {
@@ -28,17 +28,91 @@ typedef struct Lista_ {
     Nodo *coda;
     int num_elementi;
 
-} Lista;
+} *Lista;
 
 
-Lista *inserimento_in_coda(Lista *lista, int id, char *Nome);
-Lista *inserimento_in_ordine_crescente (Lista *lista, int id, char *Nome);
-void stampa_lista(Lista *lista, int ordine);
 
+Lista inserimento_in_coda(Lista lista, int id, char *Nome);
+Lista inserimento_in_ordine_crescente (Lista lista, int id, char *Nome);
+void stampa_lista(Lista lista, int ordine);
+Lista inverti_lista(Lista lista);
+link inverti_listaR(link corrente, link nuova_coda, link *nuova_testa);
+Lista inserimento_in_ordine_crescente_con_puntatori(Lista lista, int id, char *Nome);
+
+Lista inverti_lista(Lista lista) {
+    
+    link elemento_corrente_lista_inversa = NULL;
+
+    link corrente=lista->testa;
+    link successivo = corrente->next;
+    link back;
+
+
+
+
+    while (successivo!=NULL) {
+
+        elemento_corrente_lista_inversa = corrente;
+        
+
+        back = successivo->next;
+
+
+        successivo->next=elemento_corrente_lista_inversa;
+
+        //
+        elemento_corrente_lista_inversa->last=NULL;
+        //
+
+        corrente=successivo;
+        successivo = back;
+
+
+        continue;
+
+
+    }
+
+    lista->testa=corrente;
+
+    //
+    lista->testa->last=NULL;
+    //
+
+    //VERSIONE RICORSIVA
+    //link nuova_coda;
+    //link *nuova_testa = malloc(sizeof(link));
+    // nuova_coda = inverti_listaR(lista->testa,nuova_coda,nuova_testa);
+    // (*nuova_testa)->last=NULL;
+    // nuova_coda->next=NULL;
+    // lista->testa=*nuova_testa;
+    // //se con coda
+    // lista->coda=nuova_coda;
+
+    return lista;
+
+
+}
+
+link inverti_listaR(link corrente, link nuova_coda, link *nuova_testa) {
+
+    if (corrente->next==NULL) {
+        nuova_coda = corrente;
+        *nuova_testa=nuova_coda;
+        return nuova_coda;
+    }
+    nuova_coda = inverti_listaR(corrente->next, nuova_coda, nuova_testa);
+    nuova_coda->next=corrente;
+    /// se doppio linkata
+    corrente->last=nuova_coda;
+    ///
+    nuova_coda=nuova_coda->next;
+}
+  
 
 int main() {
 
-    Lista *lista = malloc(sizeof(Lista));    //creiamo una lista vuota
+    Lista lista = malloc(sizeof(*lista));    //creiamo una lista vuota
     lista->num_elementi=0;
     lista->testa=NULL;
     lista->coda=NULL;
@@ -56,16 +130,21 @@ int main() {
         }
         puts("Nome:");
         scanf("%s", Nome); 
-        lista = inserimento_in_ordine_crescente(lista,id,Nome); //inserisci gli elementi nella lista e ritorna per comodità il numero di elementi
+        lista = inserimento_in_ordine_crescente_con_puntatori(lista,id,Nome); //inserisci gli elementi nella lista e ritorna per comodità il numero di elementi
         puts("\n");
     }
     //ordine crescente
     stampa_lista(lista, 1);
     //ordine decrescente
-    stampa_lista(lista,-1);
+    //stampa_lista(lista,-1);
+    //
+    inverti_lista(lista);
+    stampa_lista(lista, 1);
+    //stampa_lista(lista, -1);
+    return 0;
 }
 
-void stampa_lista(Lista *lista, int ordine) {
+void stampa_lista(Lista lista, int ordine) {
 
     puts("\n");
     
@@ -95,8 +174,47 @@ void stampa_lista(Lista *lista, int ordine) {
     }
 }
 
+Lista inserimento_in_ordine_crescente_con_puntatori(Lista lista, int id, char *Nome) {
+
+    Nodo *nuovo_nodo = malloc(sizeof(Nodo));
+    nuovo_nodo->id=id;
+    nuovo_nodo->Nome=strdup(Nome);
+    nuovo_nodo->next=NULL;
+
+    Nodo *nodo_corrente = lista->testa;
+    Nodo *nodo_precedente = NULL;
+
+    while(nodo_corrente!=NULL) {
+        nodo_precedente=nodo_corrente;
+        if (nodo_corrente->next!=NULL) {
+            if (nuovo_nodo->id - nodo_precedente->id > 0 && nuovo_nodo->id - nodo_corrente->next->id < 0 ) {
+                break;
+            }
+        }
+        nodo_corrente=nodo_corrente->next;
+    }
+
+    //ci troviamo nella condizioni di avere in nodo_precedente elemento dopo il quale salvare, nodo_corrente dovrebbe essere sempre null
+    if (nodo_precedente == NULL) {
+        lista->testa=nuovo_nodo;
+    }
+    else {
+        //ci possiamo trovare o alla fine o in mezzo, se siamo in mezzo doppiamo inseire dopo nodo_precedente
+        if (nodo_corrente!=NULL) {
+            nuovo_nodo->next=nodo_corrente;
+        }
+        //inserimento alla fine
+        nodo_precedente->next=nuovo_nodo;
+        }
+
+    lista->num_elementi++;
+    return lista;
+    
+
+}
+
 //versione inserimento in coda e in mezzo
-Lista *inserimento_in_ordine_crescente (Lista *lista, int id, char *Nome) {
+Lista inserimento_in_ordine_crescente (Lista lista, int id, char *Nome) {
 
     Nodo *nuovo_nodo = malloc(sizeof(Nodo));
     nuovo_nodo->id=id;
@@ -137,7 +255,7 @@ Lista *inserimento_in_ordine_crescente (Lista *lista, int id, char *Nome) {
     return lista;
 }
 
-Lista *inserimento_in_coda (Lista *lista, int id, char *Nome) {
+Lista inserimento_in_coda (Lista lista, int id, char *Nome) {
 
 
     Nodo *nuovo_nodo = malloc(sizeof(Nodo));

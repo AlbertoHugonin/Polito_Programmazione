@@ -24,7 +24,7 @@ struct node {
 static int ListFreeR(link node);
 
 LISTA ListInit() {
-    LISTA list = malloc(sizeof(struct list *));
+    LISTA list = malloc(sizeof(* list));
     list->head=NULL;
     list->tail=NULL;
     list->N=0;
@@ -62,7 +62,7 @@ static int ListFreeR(link node) {
 }
 
 LISTA ListAdd(LISTA list, char string[]) {
-    link nodo = malloc(sizeof(struct node *));
+    link nodo = malloc(sizeof(* nodo));
     nodo->string = malloc(strlen(string) * sizeof(char));
     nodo->next = NULL;
     strcpy(nodo->string,string);

@@ -31,6 +31,100 @@ static Nodo *BSTminR(Nodo *corrente, Nodo *fine);
 static Nodo *BSTmaxR(Nodo *corrente, Nodo *fine);
 static Item BSTpredR(Nodo *corrente, Nodo *fine, Key key);
 static Nodo *BSTSearchKeyR(Nodo *corrente, Nodo *fine, Item elemento);
+static int AltezzaMassimaR(Nodo *corrente, Nodo *fine, int altezza_corrente, int *altezza_massima);
+static int NfoglieR(Nodo *corrente, Nodo *fine);
+static int count_un_figlioR(Nodo *corrente, Nodo *fine);
+static Nodo *BSTCancellaFigliSinistriDaKR(Nodo *corrente, Nodo *fine, int altezza_corrente, int k);
+
+int NFoglie(BST albero) {
+
+    return NfoglieR(albero->radice,albero->z);
+
+}
+
+
+BST BSTCancellaFigliSinistriDaK(BST albero,int k) {
+    albero->radice = BSTCancellaFigliSinistriDaKR(albero->radice,albero->z,0,k);
+    return albero;
+}
+
+
+static Nodo *BSTCancellaFigliSinistriDaKR(Nodo *corrente, Nodo *fine, int altezza_corrente, int k) {
+
+    if (corrente==fine || (corrente->left == fine && corrente->right == fine)) {
+        return corrente;
+    }
+
+    corrente->left = BSTCancellaFigliSinistriDaKR(corrente->left,fine,altezza_corrente+1,k);
+    corrente->right = BSTCancellaFigliSinistriDaKR(corrente->right,fine,altezza_corrente+1,k);
+
+    if (altezza_corrente>=k) {
+        if (corrente->left!=fine) {
+            free(corrente->left);
+            corrente->left=fine;
+        }
+    }
+    return corrente;
+}
+
+
+int BSTCount_un_figlio(BST albero) {
+    return count_un_figlioR(albero->radice,albero->z);
+}
+
+static int count_un_figlioR(Nodo *corrente, Nodo *fine) {
+
+    if (corrente==fine) {
+        return 0;
+    }
+    if (corrente->left == fine || corrente->right == fine) {
+        return countR(corrente->right,fine) + countR(corrente->left,fine) + 1;
+    }
+    else {
+        return countR(corrente->right,fine) + countR(corrente->left,fine);        
+    }
+}
+
+
+static int NfoglieR(Nodo *corrente, Nodo *fine) {
+
+    //nel caso si finisse in un nodo sentinella ad esempio quando un nodo ha solo puntatore a destra
+    if (corrente == fine) {
+        return 0;
+    }
+
+    //verifica se nodo è una foglia allora incrementa
+    if (corrente->left == fine && corrente->right == fine) {
+        return 1;
+    }
+
+    return NfoglieR(corrente->left,fine) + NfoglieR(corrente->right,fine);
+
+}
+
+
+int AltezzaMassima(BST albero) {
+    int altezza_massima = 0;
+    AltezzaMassimaR(albero->radice,albero->z,0,&altezza_massima);
+    return altezza_massima;
+}
+
+
+static int AltezzaMassimaR(Nodo *corrente, Nodo *fine, int altezza_corrente, int *altezza_massima) {
+
+    if (corrente==fine) {
+        return 0;
+    }
+    if (corrente->left == fine && corrente->right == fine) {
+        if (altezza_corrente>*altezza_massima) {
+            *altezza_massima=altezza_corrente;
+        }
+        return altezza_corrente;
+    }
+
+    AltezzaMassimaR(corrente->left,fine,altezza_corrente+1,altezza_massima);
+    AltezzaMassimaR(corrente->right,fine,altezza_corrente+1,altezza_massima);
+}
 
 BST BstInit() {
 
@@ -130,6 +224,9 @@ static void BSTFreeR(Nodo *corrente, Nodo *fine) {
     return;
 }
 
+int BSTCount(BST albero) {
+    return countR(albero->radice,albero->z);
+}
 static int countR(Nodo *corrente, Nodo *fine) {
     if (corrente==fine) {
         return 0;
