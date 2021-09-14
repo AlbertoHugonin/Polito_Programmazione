@@ -80,14 +80,14 @@ Lista inverti_lista(Lista lista) {
     //
 
     //VERSIONE RICORSIVA
-    //link nuova_coda;
-    //link *nuova_testa = malloc(sizeof(link));
-    // nuova_coda = inverti_listaR(lista->testa,nuova_coda,nuova_testa);
-    // (*nuova_testa)->last=NULL;
-    // nuova_coda->next=NULL;
-    // lista->testa=*nuova_testa;
-    // //se con coda
-    // lista->coda=nuova_coda;
+    link nuova_coda;
+    link *nuova_testa = malloc(sizeof(link));
+    nuova_coda = inverti_listaR(lista->testa,nuova_coda,nuova_testa);
+    (*nuova_testa)->last=NULL;
+    nuova_coda->next=NULL;
+    lista->testa=*nuova_testa;
+    //se con coda
+    lista->coda=nuova_coda;
 
     return lista;
 

@@ -20,13 +20,13 @@ struct lista_ {
 
 LIST listacreate(int a, int b) {
 
-    LIST list = malloc(sizeof(struct lista_ *));
-    list->testa = malloc(sizeof(struct nodo_ *));
+    LIST list = malloc(sizeof(struct lista_));
+    list->testa = malloc(sizeof(struct nodo_));
     list->testa->k = a;
     list->testa->prev=NULL;
     link corrente = list->testa;
     for (a; a<b; a++) {
-        corrente->next = malloc(sizeof(struct nodo_ *));
+        corrente->next = malloc(sizeof(struct nodo_));
         corrente->next->k = a+1;
         corrente->next->prev=corrente;
         corrente=corrente->next;
